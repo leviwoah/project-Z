@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <title>MintedCo</title>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">MintedCo</div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="investments.html">Investments</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="loginLink"><a href="login.html">Login</a></li>
+            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
+        </ul>
+        <div class="user-dropdown" id="userDropdown" style="display: none;">
+            <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
+            <div class="user-dropdown-content">
+                <a href="edit-profile.html">Edit Profile</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <section class="hero">
+        <video autoplay muted id="index-hero-video" class="hero-video">
+            <source src="video/2450251-uhd_3840_2160_30fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Empowering Your Financial Future</h1>
+            <p>Smart Investments. Secure Savings. Bright Future.</p>
+            <a href="signup.html" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+        <!-- introduction section -->
+        <section class="investments-hero">
+            <div class="hero-content">
+                <h1>Invest in Your Future</h1>
+                <p>Explore the best investment opportunities to grow your wealth.</p>
+            </div>
+            <div class="stock-ticker">
+                <ul id="stock-list"></ul>
+            </div>
+            <div id="update-time" class="update-time"></div>
+        </section>
+        
+        
+        
+        
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-container">
+            <div class="service-item">
+                <img src="images/graph.png" alt="Financial Planning Icon">
+                <h3>Financial Planning</h3>
+                <p>We provide comprehensive financial planning services to help you achieve your financial goals. Our customized plans ensure that your financial future is secure and well-organized.</p>
+            </div>
+            <div class="service-item">
+                <img src="images/volatility.png" alt="Investment Advice Icon">
+                <h3>Investment Advice</h3>
+                <p>Our experts offer strategic investment advice to grow your wealth through smart and informed decisions. We guide you through the best investment opportunities tailored to your needs.</p>
+            </div>
+            <div class="service-item">
+                <img src="images/retirement.png" alt="Retirement Planning Icon">
+                <h3>Retirement Planning</h3>
+                <p>Secure your future with our comprehensive retirement planning services. We help you plan your retirement with confidence and ensure financial stability for your golden years.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="latest-news">
+        <h2>Latest News</h2>
+        <div class="news-container">
+            <div class="news-item">
+                <img src="images/pexels-anna-nekrashevich-6802048.jpg" alt="Market Trends to Watch">
+                <h3>Market Trends to Watch</h3>
+                <p class="date">Published on June 8, 2024</p>
+                <p>Stay informed about the latest market trends and insights. Our experts provide in-depth analysis to help you make informed investment decisions.</p>
+                <a href="news1.html" class="read-more">Read More</a>
+            </div>
+            <div class="news-item">
+                <img src="images/pexels-anna-nekrashevich-6801869.jpg" alt="Investment Opportunities">
+                <h3>Investment Opportunities</h3>
+                <p class="date">Published on May 25, 2024</p>
+                <p>Explore the best investment opportunities available today. Our guides will help you find the right investments to grow your portfolio.</p>
+                <a href="news2.html" class="read-more">Read More</a>
+            </div>
+            <div class="news-item">
+                <img src="images/pexels-anna-nekrashevich-6802049.jpg" alt="Financial Planning Tips">
+                <h3>Financial Planning Tips</h3>
+                <p class="date">Published on May 20, 2024</p>
+                <p>Learn essential financial planning tips to secure your financial future. From budgeting to saving, our tips will help you stay on track.</p>
+                <a href="news3.html" class="read-more">Read More</a>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-container">
+            <div class="testimonial">
+                <p>"MintedCo helped me secure my financial future. Highly recommend!"</p>
+                <span>★★★★★</span>
+                <div class="client-name">- John Doe</div>
+            </div>
+            <div class="testimonial">
+                <p>"Excellent advice and great service. My investments have never been better."</p>
+                <span>★★★★★</span>
+                <div class="client-name">- Jane Smith</div>
+            </div>
+            <div class="testimonial">
+                <p>"Outstanding support and guidance. I feel confident about my financial future."</p>
+                <span>★★★★★</span>
+                <div class="client-name">- Emily Johnson</div>
+            </div>
+            <div class="testimonial">
+                <p>"The best financial service I've experienced. Highly trustworthy and reliable."</p>
+                <span>★★★★★</span>
+                <div class="client-name">- Michael Brown</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="benefits">
+        <h2>Why Choose MintedCo</h2>
+        <div class="benefit-container">
+            <div class="benefit-item">
+                <h3>Expertise</h3>
+                <p>Our team of experts provides top-notch financial advice.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Personalized Plans</h3>
+                <p>We offer customized financial plans tailored to your needs.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Proven Results</h3>
+                <p>Our clients have consistently achieved their financial goals.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Comprehensive Services</h3>
+                <p>We cover all aspects of financial planning, from investments to retirement.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Phone: +905314678233</p>
+            <p>Email: <a href="mailto:leviwhoa1@gmail.com">leviwhoa1@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/levi-whoa-83601830a/">https://www.linkedin.com/in/levi-whoa-83601830a/</a></p>
+            <p>Instagram: <a href="https://www.instagram.com/s_mok_s/">https://www.instagram.com/s_mok_s/</a></p>
+        </div>
+    </footer>
+
+    <script src="js/index-video-cycle.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/nav.js"></script>
+</body>
+</html>

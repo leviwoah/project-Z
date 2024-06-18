@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <link rel="stylesheet" type="text/css" href="/css/contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>MintedCo - Contact</title>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">MintedCo</div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="investments.html">Investments</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="loginLink"><a href="login.html">Login</a></li>
+            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
+        </ul>
+        <div class="user-dropdown" id="userDropdown" style="display: none;">
+            <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
+            <div class="user-dropdown-content">
+                <a href="edit-profile.html">Edit Profile</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    </nav>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="additional-info">
+        <div class="info-container">
+            <div class="info-item">
+                <img src="images/office.png" alt="Office Icon">
+                <h2>Our Office</h2>
+                <p>123 Finance Street, Suite 456</p>
+                <p>Financial District, City Name, Country</p>
+            </div>
+            <div class="info-item">
+                <img src="images/clock.png" alt="Clock Icon">
+                <h2>Business Hours</h2>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Phone: +905314678233</p>
+            <p>Email: <a href="mailto:leviwhoa1@gmail.com">leviwhoa1@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/levi-whoa-83601830a/">https://www.linkedin.com/in/levi-whoa-83601830a/</a></p>
+            <p>Instagram: <a href="https://www.instagram.com/s_mok_s/">https://www.instagram.com/s_mok_s/</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/contact.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/nav.js"></script>
+</body>
+</html>

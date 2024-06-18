@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/investments.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>MintedCo - Investments</title>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">MintedCo</div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="investments.html">Investments</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="loginLink"><a href="login.html">Login</a></li>
+            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
+        </ul>
+        <div class="user-dropdown" id="userDropdown" style="display: none;">
+            <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
+            <div class="user-dropdown-content">
+                <a href="edit-profile.html">Edit Profile</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <section class="investments-hero">
+        <div class="hero-content">
+            <h1>Invest in Your Future</h1>
+            <p>Explore the best investment opportunities to grow your wealth.</p>
+        </div>
+        <div class="stock-ticker">
+            <ul id="stock-list"></ul>
+        </div>
+        <div id="update-time" class="update-time"></div>
+    </section>
+
+    <section class="introduction">
+        <div class="container">
+            <h2>Welcome to Our Investment Platform</h2>
+            <p>At MintedCo, we offer a wide range of investment opportunities tailored to meet your financial goals. Our expert team provides insights and strategies to help you make informed decisions.</p>
+        </div>
+    </section>
+
+    <section class="investment-opportunities">
+        <h2>Investment Opportunities</h2>
+        <div class="investment-container">
+            <div class="investment-card">
+                <div class="investment-card-inner">
+                    <div class="investment-card-front">
+                        <img src="images/stocks.png" alt="Stocks Icon">
+                        <h3>Stocks</h3>
+                    </div>
+                    <div class="investment-card-back">
+                        <h3>Stocks</h3>
+                        <p>Invest in a diverse range of stocks to grow your portfolio.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card">
+                <div class="investment-card-inner">
+                    <div class="investment-card-front">
+                        <img src="images/bonds.png" alt="Bonds Icon">
+                        <h3>Bonds</h3>
+                    </div>
+                    <div class="investment-card-back">
+                        <h3>Bonds</h3>
+                        <p>Secure your investments with stable and reliable bonds.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card">
+                <div class="investment-card-inner">
+                    <div class="investment-card-front">
+                        <img src="images/agreement.png" alt="Real Estate Icon">
+                        <h3>Real Estate</h3>
+                    </div>
+                    <div class="investment-card-back">
+                        <h3>Real Estate</h3>
+                        <p>Diversify your portfolio with real estate investments.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card">
+                <div class="investment-card-inner">
+                    <div class="investment-card-front">
+                        <img src="images/money.png" alt="Mutual Funds Icon">
+                        <h3>Mutual Funds</h3>
+                    </div>
+                    <div class="investment-card-back">
+                        <h3>Mutual Funds</h3>
+                        <p>Invest in mutual funds for a balanced and diversified approach.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="market-insights">
+        <div class="container">
+            <h2>Market Insights</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="market-trends" onclick="openTab(event, 'market-trends')">Market Trends</button>
+                <button class="tab-button" data-tab="investment-strategies" onclick="openTab(event, 'investment-strategies')">Investment Strategies</button>
+                <button class="tab-button" data-tab="economic-outlook" onclick="openTab(event, 'economic-outlook')">Economic Outlook</button>
+                <button class="tab-button" data-tab="risk-management" onclick="openTab(event, 'risk-management')">Risk Management</button>
+            </div>
+            <div id="market-trends" class="tab-content active">
+                <h3>Market Trends</h3>
+                <p>Stay updated with the latest market trends and analysis...</p>
+                <ul>
+                    <li><strong>Technology Advancements:</strong> The tech sector continues to drive significant changes...</li>
+                    <li><strong>Green Energy:</strong> The shift towards renewable energy sources is gaining momentum...</li>
+                    <li><strong>Global Trade:</strong> Trade policies and international relations can impact market trends...</li>
+                </ul>
+            </div>
+    
+            <div id="investment-strategies" class="tab-content">
+                <h3>Investment Strategies</h3>
+                <p>Explore various investment strategies to maximize your returns. Diversification, asset allocation, and dollar-cost averaging are key strategies for successful investing.</p>
+                <ul>
+                    <li><strong>Diversification:</strong> Spread your investments across different asset classes to reduce risk. This can include stocks, bonds, real estate, and commodities.</li>
+                    <li><strong>Asset Allocation:</strong> Allocate your portfolio based on your risk tolerance and investment goals. Adjust the allocation as market conditions change.</li>
+                    <li><strong>Dollar-Cost Averaging:</strong> Invest a fixed amount of money at regular intervals, regardless of the market conditions. This strategy helps mitigate the impact of market volatility.</li>
+                    <li><strong>Value Investing:</strong> Focus on buying undervalued stocks with strong fundamentals. The goal is to invest in companies that are trading below their intrinsic value.</li>
+                </ul>
+            </div>
+    
+            <div id="economic-outlook" class="tab-content">
+                <h3>Economic Outlook</h3>
+                <p>Get insights into the economic outlook and its impact on investments. Economic indicators such as GDP, inflation rates, and employment figures provide a snapshot of the economic health.</p>
+                <ul>
+                    <li><strong>Gross Domestic Product (GDP):</strong> A growing GDP indicates a healthy economy, which can lead to higher corporate profits and rising stock prices.</li>
+                    <li><strong>Inflation Rates:</strong> Moderate inflation is generally positive for the economy, but high inflation can erode purchasing power and negatively impact investments.</li>
+                    <li><strong>Employment Figures:</strong> High employment levels can boost consumer spending and drive economic growth. Monitor job reports and unemployment rates for insights.</li>
+                    <li><strong>Central Bank Policies:</strong> Central banks influence economic conditions through interest rate adjustments and monetary policy. Pay attention to announcements from the Federal Reserve and other central banks.</li>
+                </ul>
+            </div>
+    
+            <div id="risk-management" class="tab-content">
+                <h3>Risk Management</h3>
+                <p>Learn about risk management techniques to protect your investments. Risk assessment, portfolio diversification, and setting stop-loss orders are essential practices for managing risk.</p>
+                <ul>
+                    <li><strong>Risk Assessment:</strong> Evaluate the risk associated with each investment. Consider factors such as market volatility, industry trends, and company performance.</li>
+                    <li><strong>Portfolio Diversification:</strong> Diversify your portfolio across different asset classes and sectors to spread risk. This can help reduce the impact of poor-performing investments.</li>
+                    <li><strong>Stop-Loss Orders:</strong> Set stop-loss orders to automatically sell a security when it reaches a certain price. This helps limit losses in case of a market downturn.</li>
+                    <li><strong>Hedging:</strong> Use hedging strategies such as options and futures contracts to protect against potential losses. Hedging can provide a safety net during volatile market conditions.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="investment-tools">
+        <div class="container">
+            <h2>Investment Tools</h2>
+            <div class="tools-list">
+                <div class="tool-item" data-tool="currencyConverter" onclick="openTool('currencyConverter')">
+                    <h3>Currency Converter</h3>
+                    <p>Convert currencies based on the latest exchange rates.</p>
+                </div>
+                <div class="tool-item" data-tool="riskAssessment" onclick="openTool('riskAssessment')">
+                    <h3>Risk Assessment</h3>
+                    <p>Evaluate the risk levels of different investment options.</p>
+                </div>
+                <div class="tool-item" data-tool="financialCalculator" onclick="openTool('financialCalculator')">
+                    <h3>Financial Calculator</h3>
+                    <p>Use our financial calculators to plan your investment strategy.</p>
+                </div>
+                <div class="tool-item" data-tool="marketAnalysis" onclick="openTool('marketAnalysis')">
+                    <h3>Market Analysis</h3>
+                    <p>Access in-depth market analysis and reports to make informed decisions.</p>
+                </div>
+                <div class="tool-item" data-tool="investmentNews" onclick="openTool('investmentNews')">
+                    <h3>Investment News</h3>
+                    <p>Stay updated with the latest investment news and trends.</p>
+                </div>
+                <div class="tool-item" data-tool="retirementPlanner" onclick="openTool('retirementPlanner')">
+                    <h3>Retirement Planner</h3>
+                    <p>Plan your retirement with our comprehensive tools and advice.</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Placeholder Modal for Tools -->
+        <div id="toolModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+    </section>
+    
+    
+        <!-- Placeholder Modal for Tools -->
+        <div id="toolModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Phone: +905314678233</p>
+            <p>Email: <a href="mailto:leviwhoa1@gmail.com">leviwhoa1@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/levi-whoa-83601830a/">https://www.linkedin.com/in/levi-whoa-83601830a/</a></p>
+            <p>Instagram: <a href="https://www.instagram.com/s_mok_s/">https://www.instagram.com/s_mok_s/</a></p>
+        </div>
+    </footer>
+    
+    <script src="js/investments.js"></script>
+    <script src="js/tools-function.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="js/nav.js"></script>
+</body>
+</html>
