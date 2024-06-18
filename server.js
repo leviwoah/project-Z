@@ -120,7 +120,7 @@ app.post('/reset-password', (req, res) => {
     }
 
     const token = Math.random().toString(36).substring(7); // Simple token for demonstration
-    const resetLink = `https://project-z-bay.vercel.app/reset-password.html?token=${token}&email=${email}`;
+    const resetLink = `http://localhost:${port}/reset-password.html?token=${token}&email=${email}`;
 
     // Update the user's reset token (for simplicity, not saved to file here)
     user.resetToken = token;
@@ -205,11 +205,8 @@ app.post('/update-profile', upload.single('avatar'), (req, res) => {
     res.status(200).json({ message: 'Profile updated successfully', avatar: avatarPath });
 });
 
-// Fallback route for handling all other routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+module.exports = app; // Export the app for serverless functions
