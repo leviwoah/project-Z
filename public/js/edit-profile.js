@@ -52,8 +52,10 @@ function openTab(event, tabName) {
 
 function saveProfile() {
     const formData = new FormData(document.getElementById('editProfileForm'));
+    const baseUrl = "https://project-z-bay.vercel.app";
+    formData.append('username', localStorage.getItem('username'));
 
-    fetch('/update-profile', {
+    fetch('${baseUrl}/update-profile', {
         method: 'POST',
         body: formData
     })
