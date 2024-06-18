@@ -13,9 +13,8 @@ function signup() {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const baseUrl = "https://project-z-bay.vercel.app";
 
-    fetch('${baseUrl}/signup', {
+    fetch('/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

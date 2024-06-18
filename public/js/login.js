@@ -12,9 +12,8 @@ function login() {
     const usernameOrEmail = document.getElementById('usernameOrEmail').value;
     const password = document.getElementById('password').value;
     const rememberMe = document.getElementById('rememberMe').checked;
-    const baseUrl = "https://project-z-bay.vercel.app";
 
-    fetch('${baseUrl}/login', {
+    fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
