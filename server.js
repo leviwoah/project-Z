@@ -50,6 +50,22 @@ function saveData() {
 // Load initial data
 loadData();
 
+// Get user data endpoint
+app.get('/get-user', (req, res) => {
+    const { username } = req.query;
+    const user = users[username];
+
+    if (!user) {
+        return res.status(400).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({
+        username,
+        email: user.email,
+        avatar: user.avatar
+    });
+});
+
 // Signup endpoint
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
@@ -89,25 +105,25 @@ app.get('/portfolio', (req, res) => {
 // Update password endpoint
 app.post('/update-password', (req, res) => {
     const { username, currentPassword, newPassword } = req.body;
+
+    console.log('Received update-password request:', req.body); // Log the received request data
+
     const user = users[username];
 
-    if (!user || user.password !== currentPassword) {
+    if (!user) {
+        console.error('User not found:', username);
+        return res.status(400).json({ error: 'User not found' });
+    }
+
+    if (user.password !== currentPassword) {
+        console.error('Invalid current password for user:', username);
         return res.status(400).json({ error: 'Invalid current password' });
     }
 
-    users[username].password = newPassword;
+    user.password = newPassword;
     saveData();
-    res.status(200).json({ message: 'Password updated successfully' });
-});
 
-app.post('/portfolio', (req, res) => {
-    const { username, investment, value } = req.body;
-    if (!portfolios[username]) {
-        return res.status(400).json({ error: 'User not found' });
-    }
-    portfolios[username].push({ investment, value });
-    saveData();
-    res.status(200).json({ message: 'Investment added successfully' });
+    res.status(200).json({ message: 'Password updated successfully' });
 });
 
 // Password reset endpoint
@@ -184,14 +200,15 @@ app.post('/contact', (req, res) => {
 
 // Profile update endpoint
 app.post('/update-profile', upload.single('avatar'), (req, res) => {
-    const { username, email } = req.body;
+    const username = Array.isArray(req.body.username) ? req.body.username[0] : req.body.username;
+    console.log("Received update-profile request:", req.body);
+    console.log("Received file:", req.file);
+
     const user = users[username];
 
     if (!user) {
         return res.status(400).json({ error: 'User not found' });
     }
-
-    user.email = email;
 
     // Update avatar if provided
     let avatarPath;
@@ -205,8 +222,7 @@ app.post('/update-profile', upload.single('avatar'), (req, res) => {
     res.status(200).json({ message: 'Profile updated successfully', avatar: avatarPath });
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
-module.exports = app; // Export the app for serverless functions

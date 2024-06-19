@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData(form);
         const data = {};
-        const baseUrl = "https://project-z-bay.vercel.app";
         formData.forEach((value, key) => {
             data[key] = value;
         });
 
-        fetch('${baseUrl}/contact', {
+        fetch('/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -10,6 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (avatarPath) {
             document.querySelector('.user-dropdown img').src = avatarPath;
         }
+
+        // Fetch and update user data
+        fetch(`/get-user?username=${username}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showNotification(data.error, 'error');
+                } else {
+                    if (data.avatar) {
+                        localStorage.setItem('avatar', data.avatar); // Save avatar path to localStorage
+                        document.querySelector('.user-dropdown img').src = data.avatar; // Update avatar in the nav bar
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching user data:', error));
     } else {
         document.getElementById('loginLink').style.display = 'inline-block';
         document.getElementById('signupLink').style.display = 'inline-block';

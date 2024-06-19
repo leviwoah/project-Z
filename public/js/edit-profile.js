@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('username');
-    const avatarPath = localStorage.getItem('avatar');
 
     if (username) {
-        document.getElementById('loginLink').style.display = 'none';
-        document.getElementById('signupLink').style.display = 'none';
-        document.getElementById('userDropdown').style.display = 'inline-block';
-        document.querySelector('.user-dropdown img').alt = username;
-        if (avatarPath) {
-            document.querySelector('.user-dropdown img').src = avatarPath;
-        }
+        fetch(`/get-user?username=${username}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    showNotification(data.error, 'error');
+                } else {
+                    document.getElementById('username').value = data.username;
+                    document.getElementById('email').value = data.email;
+                }
+            })
+            .catch(error => console.error('Error fetching user data:', error));
     }
-
-    document.querySelector('.user-dropdown').addEventListener('mouseenter', () => {
-        document.querySelector('.user-dropdown-content').style.display = 'block';
-    });
-
-    document.querySelector('.user-dropdown').addEventListener('mouseleave', () => {
-        document.querySelector('.user-dropdown-content').style.display = 'none';
-    });
 
     document.getElementById('editProfileForm').addEventListener('submit', (event) => {
         event.preventDefault();
@@ -52,33 +52,60 @@ function openTab(event, tabName) {
 
 function saveProfile() {
     const formData = new FormData(document.getElementById('editProfileForm'));
-    const baseUrl = "https://project-z-bay.vercel.app";
-    formData.append('username', localStorage.getItem('username'));
+    formData.set('username', localStorage.getItem('username')); // Ensure it's a single string value
 
-    fetch('${baseUrl}/update-profile', {
+    console.log('Username:', localStorage.getItem('username'));
+    console.log('Email:', document.getElementById('email').value);
+    console.log('Avatar:', formData.get('avatar'));
+
+    fetch('/update-profile', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.error) {
             showNotification(data.error, 'error');
         } else {
             localStorage.setItem('avatar', data.avatar);
             showNotification('Profile updated successfully', 'success');
+            // Update the avatar image in the navigation
+            document.querySelector('.user-dropdown img').src = data.avatar;
         }
     })
     .catch(error => console.error('Error:', error));
 }
 
+
 function changePassword() {
-    const formData = new FormData(document.getElementById('changePasswordForm'));
+    const formData = {
+        username: localStorage.getItem('username'),
+        currentPassword: document.getElementById('currentPassword').value,
+        newPassword: document.getElementById('newPassword').value,
+    };
+
+    console.log('Current Password:', formData.currentPassword);
+    console.log('New Password:', formData.newPassword);
+    console.log('Username:', formData.username);
 
     fetch('/update-password', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.error) {
             showNotification(data.error, 'error');
