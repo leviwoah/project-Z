@@ -9,17 +9,36 @@ function checkLoginStatus() {
     }
 }
 
-function signup() {
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function onClick(token) {
+    signup(token);
+}
+
+function signup(token) {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+
+    if (!validateEmail(email)) {
+        showNotification('Invalid email address', 'error');
+        return;
+    }
+
+    if (!token) {
+        showNotification('Please complete the CAPTCHA', 'error');
+        return;
+    }
 
     fetch('/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password, recaptchaToken: token })
     })
     .then(response => response.json())
     .then(data => {
@@ -57,16 +76,54 @@ function showNotification(message, type) {
 function checkPasswordStrength() {
     const password = document.getElementById('password').value;
     const strengthIndicator = document.getElementById('strengthIndicator');
-    let strength = 'Weak';
+    const strengthBar = document.querySelector('.strength-bar');
 
-    if (password.length > 8 && /[A-Z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
+    let strength = 'Very Weak';
+    let strengthClass = 'strength-very-weak';
+    let filledBars = 1;
+
+    if (password.length > 12 && /[A-Z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
+        strength = 'Very Strong';
+        strengthClass = 'strength-very-strong';
+        filledBars = 5;
+    } else if (password.length > 10 && /[A-Z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
         strength = 'Strong';
-    } else if (password.length > 6 && /[A-Z]/.test(password) && /\d/.test(password)) {
+        strengthClass = 'strength-strong';
+        filledBars = 4;
+    } else if (password.length > 8 && /[A-Z]/.test(password) && /\d/.test(password)) {
         strength = 'Moderate';
+        strengthClass = 'strength-moderate';
+        filledBars = 3;
+    } else if (password.length > 6 && /[A-Z]/.test(password)) {
+        strength = 'Weak';
+        strengthClass = 'strength-weak';
+        filledBars = 2;
+    } else {
+        strength = 'Very Weak';
+        strengthClass = 'strength-very-weak';
+        filledBars = 1;
     }
 
     strengthIndicator.textContent = `Strength: ${strength}`;
-    strengthIndicator.style.color = strength === 'Strong' ? 'green' : (strength === 'Moderate' ? 'orange' : 'red');
+    strengthIndicator.style.display = 'block';
+
+    strengthBar.className = `strength-bar ${strengthClass}`;
+    strengthBar.style.display = 'flex';
+
+    const bars = strengthBar.querySelectorAll('div');
+    bars.forEach((bar, index) => {
+        bar.style.backgroundColor = index < filledBars ? '' : '#ddd';
+    });
+
+    if (password.length === 0) {
+        strengthIndicator.style.display = 'none';
+        strengthBar.style.display = 'none';
+    } else {
+        const eyeIcon = document.getElementById('togglePassword');
+        if (eyeIcon) {
+            eyeIcon.classList.add('moved-up');
+        }
+    }
 }
 
 document.getElementById('togglePassword').addEventListener('click', function () {
@@ -79,4 +136,11 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
     document.getElementById('password').addEventListener('input', checkPasswordStrength);
+    document.getElementById('signupButton').addEventListener('click', () => {
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV', {action: 'submit'}).then(function(token) {
+                onClick(token);
+            });
+        });
+    });
 });

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -6,10 +5,13 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const rateLimit = require('express-rate-limit');
+const { body, validationResult } = require('express-validator');
+require('dotenv').config(); // Load environment variables
 
 const app = express();
 const port = process.env.PORT || 3000;
-const jwtSecret = process.env.JWT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,6 +36,7 @@ const upload = multer({ storage });
 
 let users = {};
 let portfolios = {};
+let resetTokens = {}; // Store reset tokens temporarily
 
 // Load data from JSON file
 function loadData() {
@@ -52,6 +55,13 @@ function saveData() {
 // Load initial data
 loadData();
 
+// Rate limit for signup endpoint
+const signupLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 requests per windowMs
+    message: 'Too many signup attempts from this IP, please try again after 15 minutes'
+});
+
 // Get user data endpoint
 app.get('/get-user', (req, res) => {
     const { username } = req.query;
@@ -68,12 +78,33 @@ app.get('/get-user', (req, res) => {
     });
 });
 
-// Signup endpoint
-app.post('/signup', (req, res) => {
-    const { username, email, password } = req.body;
+// Signup endpoint with validation, rate limiting, and reCAPTCHA verification
+app.post('/signup', signupLimiter, [
+    body('username').notEmpty().withMessage('Username is required'),
+    body('email').isEmail().withMessage('Invalid email address'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { username, email, password, recaptchaToken } = req.body;
+
+    // Verify reCAPTCHA token
+    try {
+        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`);
+        if (!response.data.success) {
+            return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Error verifying reCAPTCHA' });
+    }
+
     if (users[username] || Object.values(users).some(user => user.email === email)) {
         return res.status(400).json({ error: 'User already exists' });
     }
+
     users[username] = { email, password };
     portfolios[username] = [];
     saveData();
@@ -129,7 +160,7 @@ app.post('/update-password', (req, res) => {
 });
 
 // Password reset request endpoint
-app.post('/reset-password-request', (req, res) => {
+app.post('/request-reset-password', (req, res) => {
     const { email } = req.body;
     const user = Object.values(users).find(user => user.email === email);
 
@@ -137,15 +168,16 @@ app.post('/reset-password-request', (req, res) => {
         return res.status(400).json({ error: 'Email not found' });
     }
 
-    const token = jwt.sign({ email }, jwtSecret, { expiresIn: '5m' });
-    const resetLink = `http://localhost:${port}/reset-password.html?token=${token}&email=${email}`;
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '5m' });
+    resetTokens[token] = true; // Store the token for one-time use
+    console.log('Generated token:', token); // Log the generated token
+    const resetLink = `http://localhost:${port}/reset-password.html?token=${token}`;
 
-    // Configure the email transport using nodemailer
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'leviwoah0@gmail.com',
-            pass: process.env.GMAIL_APP_PASSWORD
+            pass: process.env.GMAIL_APP_PASSWORD // Use the app password from environment variable
         }
     });
 
@@ -169,25 +201,34 @@ app.post('/reset-password-request', (req, res) => {
 
 // Password reset endpoint
 app.post('/reset-password', (req, res) => {
-    const { email, token, newPassword } = req.body;
+    const { token, newPassword } = req.body;
 
     try {
-        const decoded = jwt.verify(token, jwtSecret);
-        if (decoded.email !== email) {
-            return res.status(400).json({ error: 'Invalid token or email' });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Decoded token:', decoded); // Log the decoded token
+        if (!resetTokens[token]) {
+            console.error('Token not found or already used:', token);
+            return res.status(400).json({ error: 'Invalid or expired token' });
         }
 
+        delete resetTokens[token]; // Remove the token after it is used
+        console.log('Token removed:', token); // Log the token removal
+        const email = decoded.email;
         const user = Object.values(users).find(user => user.email === email);
+
         if (!user) {
+            console.error('User not found:', email);
             return res.status(400).json({ error: 'User not found' });
         }
 
         user.password = newPassword;
         saveData();
+        console.log('Password updated for user:', email); // Log the password update
 
         res.status(200).json({ message: 'Password reset successfully' });
     } catch (error) {
-        return res.status(400).json({ error: 'Invalid or expired token' });
+        console.error('Error verifying token:', error);
+        res.status(400).json({ error: 'Invalid or expired token' });
     }
 });
 
@@ -199,7 +240,7 @@ app.post('/contact', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'leviwoah0@gmail.com',
-            pass: process.env.GMAIL_APP_PASSWORD
+            pass: process.env.GMAIL_APP_PASSWORD // Use the app password from environment variable
         }
     });
 
@@ -216,7 +257,7 @@ app.post('/contact', (req, res) => {
             return res.status(500).json({ error: 'Error sending message' });
         } else {
             console.log('Message sent: ' + info.response);
-            res.status200.json({ success: true, message: 'Message sent successfully' });
+            res.status(200).json({ success: true, message: 'Message sent successfully' });
         }
     });
 });
@@ -245,6 +286,24 @@ app.post('/update-profile', upload.single('avatar'), (req, res) => {
     saveData();
 
     res.status(200).json({ message: 'Profile updated successfully', avatar: avatarPath });
+});
+
+// Password update endpoint
+app.post('/update-password', (req, res) => {
+    const { username, currentPassword, newPassword } = req.body;
+
+    // Log received data to verify
+    console.log('Received update-password request:', req.body);
+
+    const user = users[username];
+
+    if (!user || user.password !== currentPassword) {
+        return res.status(400).json({ error: 'Invalid current password or user not found' });
+    }
+
+    user.password = newPassword;
+    saveData();
+    res.status(200).json({ message: 'Password updated successfully' });
 });
 
 // Start the server

@@ -23,6 +23,7 @@ body {
 }
 
 .nav .logo {
+    padding-left: 50px;
     font-size: 32px;
     font-weight: bold;
     color: #e9d8a6;

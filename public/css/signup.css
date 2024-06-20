@@ -132,12 +132,17 @@ h2 {
 
 .password-wrapper img {
     position: absolute;
-    right: 1px;
-    top: 73%;
-    transform: translateY(-50%);
+    right: 10px;
+    top: 50%;
+    transform: translateY(-1%);
     cursor: pointer;
     width: 24px;
     height: 24px;
+    transition: top 0.3s ease;
+}
+
+.password-wrapper img.moved-up {
+    top: 38px; /* Adjust this value to move the icon slightly up */
 }
 
 button {
@@ -168,6 +173,56 @@ button:hover {
     display: none;
     font-size: 14px;
     margin-top: 5px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.strength-bar {
+    display: none;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.strength-bar div {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #ddd;
+    transition: background-color 0.3s;
+}
+
+.strength-bar .strength-very-weak,
+.strength-bar .strength-weak,
+.strength-bar .strength-moderate,
+.strength-bar .strength-strong,
+.strength-bar .strength-very-strong {
+    background-color: #ddd;
+}
+
+.strength-very-weak div:nth-child(1) {
+    background-color: #ff4d4d;
+}
+
+.strength-weak div:nth-child(1),
+.strength-weak div:nth-child(2) {
+    background-color: #ff7f7f;
+}
+
+.strength-moderate div:nth-child(1),
+.strength-moderate div:nth-child(2),
+.strength-moderate div:nth-child(3) {
+    background-color: #ffcc66;
+}
+
+.strength-strong div:nth-child(1),
+.strength-strong div:nth-child(2),
+.strength-strong div:nth-child(3),
+.strength-strong div:nth-child(4) {
+    background-color: #99cc66;
+}
+
+.strength-very-strong div {
+    background-color: #66cc66;
 }
 
 @keyframes fadeIn {

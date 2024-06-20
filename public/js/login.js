@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function sendResetPasswordRequest() {
     const email = document.getElementById('resetEmail').value;
 
-    fetch('/reset-password-request', {
+    fetch('/request-reset-password', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -118,7 +118,6 @@ function sendResetPasswordRequest() {
     })
     .catch(error => console.error('Error:', error));
 }
-
 function togglePasswordVisibility() {
     const passwordField = document.getElementById('password');
     const toggleIcon = document.getElementById('togglePasswordVisibility');

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <title>MintedCo - Sign Up</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV"></script>
 </head>
 <body>
     <nav class="nav">
@@ -30,7 +31,6 @@
         </div>
     </nav>
     
-    
     <section class="signup-section">
         <div class="container">
             <div class="icon">&#128100;</div>
@@ -47,10 +47,17 @@
                 <div class="form-group password-wrapper">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <div id="strengthIndicator">Strength: Weak</div>
+                    <div id="strengthIndicator">Strength: </div>
+                    <div class="strength-bar">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                     <img src="images/eye.png" alt="Show Password" id="togglePassword">
                 </div>
-                <button type="button" onclick="signup()">Sign Up</button>
+                <button type="button" class="g-recaptcha" data-sitekey="6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV" data-callback='onClick' data-action='submit'>Sign Up</button>
             </form>
             <div id="signupMessage"></div>
         </div>
