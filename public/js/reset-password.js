@@ -14,7 +14,6 @@ function resetPassword() {
     const params = getQueryParams();
     const newPassword = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const email = params.email;
     const token = params.token;
 
     if (newPassword !== confirmPassword) {
@@ -22,12 +21,12 @@ function resetPassword() {
         return;
     }
 
-    fetch('/reset-password', {
+    fetch('/reset-password-confirm', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, token, newPassword })
+        body: JSON.stringify({ token, newPassword })
     })
     .then(response => response.json())
     .then(data => {

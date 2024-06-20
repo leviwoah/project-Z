@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function sendResetPasswordRequest() {
     const email = document.getElementById('resetEmail').value;
 
-    fetch('/reset-password', {
+    fetch('/reset-password-request', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

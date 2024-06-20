@@ -1,13 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-require('dotenv').config(); // Load environment variables
+const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 3000;
+const jwtSecret = process.env.JWT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -126,8 +128,8 @@ app.post('/update-password', (req, res) => {
     res.status(200).json({ message: 'Password updated successfully' });
 });
 
-// Password reset endpoint
-app.post('/reset-password', (req, res) => {
+// Password reset request endpoint
+app.post('/reset-password-request', (req, res) => {
     const { email } = req.body;
     const user = Object.values(users).find(user => user.email === email);
 
@@ -135,18 +137,15 @@ app.post('/reset-password', (req, res) => {
         return res.status(400).json({ error: 'Email not found' });
     }
 
-    const token = Math.random().toString(36).substring(7); // Simple token for demonstration
+    const token = jwt.sign({ email }, jwtSecret, { expiresIn: '5m' });
     const resetLink = `http://localhost:${port}/reset-password.html?token=${token}&email=${email}`;
-
-    // Update the user's reset token (for simplicity, not saved to file here)
-    user.resetToken = token;
 
     // Configure the email transport using nodemailer
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'leviwoah0@gmail.com',
-            pass: process.env.GMAIL_APP_PASSWORD // Use the app password from environment variable
+            pass: process.env.GMAIL_APP_PASSWORD
         }
     });
 
@@ -168,6 +167,30 @@ app.post('/reset-password', (req, res) => {
     });
 });
 
+// Password reset endpoint
+app.post('/reset-password', (req, res) => {
+    const { email, token, newPassword } = req.body;
+
+    try {
+        const decoded = jwt.verify(token, jwtSecret);
+        if (decoded.email !== email) {
+            return res.status(400).json({ error: 'Invalid token or email' });
+        }
+
+        const user = Object.values(users).find(user => user.email === email);
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        user.password = newPassword;
+        saveData();
+
+        res.status(200).json({ message: 'Password reset successfully' });
+    } catch (error) {
+        return res.status(400).json({ error: 'Invalid or expired token' });
+    }
+});
+
 // Contact endpoint
 app.post('/contact', (req, res) => {
     const { name, email, subject, message } = req.body;
@@ -176,7 +199,7 @@ app.post('/contact', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'leviwoah0@gmail.com',
-            pass: process.env.GMAIL_APP_PASSWORD // Use the app password from environment variable
+            pass: process.env.GMAIL_APP_PASSWORD
         }
     });
 
@@ -193,21 +216,23 @@ app.post('/contact', (req, res) => {
             return res.status(500).json({ error: 'Error sending message' });
         } else {
             console.log('Message sent: ' + info.response);
-            res.status(200).json({ success: true, message: 'Message sent successfully' });
+            res.status200.json({ success: true, message: 'Message sent successfully' });
         }
     });
 });
 
 // Profile update endpoint
 app.post('/update-profile', upload.single('avatar'), (req, res) => {
-    const username = Array.isArray(req.body.username) ? req.body.username[0] : req.body.username;
-    console.log("Received update-profile request:", req.body);
-    console.log("Received file:", req.file);
-
+    const { username } = req.body;
     const user = users[username];
 
     if (!user) {
         return res.status(400).json({ error: 'User not found' });
+    }
+
+    // Update email if provided (not required for this case)
+    if (req.body.email) {
+        user.email = req.body.email;
     }
 
     // Update avatar if provided
