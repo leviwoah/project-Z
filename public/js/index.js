@@ -10,29 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkLoginStatus();
 
-    const learnMoreBtn = document.querySelector('.learn-more-btn');
-    if (learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', toggleIntroDetails);
-    }
+    window.addEventListener('scroll', handleScrollAnimations);
 });
-
-function toggleIntroDetails() {
-    const details = document.getElementById('intro-details');
-    const learnMoreBtnContainer = document.querySelector('.learn-more-btn-container');
-
-    if (details.classList.contains('show')) {
-        details.classList.remove('show');
-        learnMoreBtnContainer.classList.remove('move-up');
-        document.querySelector('.learn-more-btn').textContent = 'Learn More';
-    } else {
-        details.classList.add('show');
-        learnMoreBtnContainer.classList.add('move-up');
-        document.querySelector('.learn-more-btn').textContent = 'Show Less';
-    }
-}
 
 function checkLoginStatus() {
     const username = localStorage.getItem('username');
+    const heroContent = document.getElementById('heroContent');
+    const heroCtaButton = document.getElementById('heroCtaButton');
+
     if (username) {
         document.getElementById('loginLink').style.display = 'none';
         document.getElementById('signupLink').style.display = 'none';
@@ -44,5 +29,26 @@ function checkLoginStatus() {
                 userButton.textContent = username;
             }
         }
+
+        // Change hero section content for logged-in users
+        heroContent.innerHTML = `
+            <h1>Welcome Back, ${username}!</h1>
+            <p>Continue managing your investments and planning your financial future with MintedCo.</p>
+            <a href="dashboard.html" class="cta-button">Go to Dashboard</a>
+        `;
     }
+}
+
+function handleScrollAnimations() {
+    const features = document.querySelectorAll('.feature');
+    const windowHeight = window.innerHeight;
+
+    features.forEach(feature => {
+        const featureTop = feature.getBoundingClientRect().top;
+        if (featureTop < windowHeight - 50) {
+            feature.classList.add('visible');
+        } else {
+            feature.classList.remove('visible');
+        }
+    });
 }

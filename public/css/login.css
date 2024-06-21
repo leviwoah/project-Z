@@ -169,16 +169,19 @@ button:hover {
     background-color: transparent;
     border: none;
     color: #0a9396;
-    text-align: left;
-    padding: 0;
-    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
     text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
 }
 
 .forgot-password-btn:hover {
-    color: #047f97;
+    color: #005f73;
+    background-color: rgba(0, 95, 115, 0.1);
+    border-radius: 5px;
 }
 
 .password-group {
@@ -193,6 +196,48 @@ button:hover {
     cursor: pointer;
     width: 20px;
     height: 20px;
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-checkbox .checkbox-span {
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 2px;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #005f73;
+    border-radius: 3px;
+    transform: translate(-50%, -50%) scale(0);
+    animation: checkboxChecked 0.3s forwards;
+}
+
+@keyframes checkboxChecked {
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 /* Modal styling */

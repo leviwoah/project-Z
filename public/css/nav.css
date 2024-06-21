@@ -70,6 +70,8 @@ body {
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
+    object-fit: cover;
+    object-position: center;
 }
 
 .user-dropdown-content {
@@ -109,8 +111,9 @@ body {
     border-radius: 50%;
     cursor: pointer;
     margin-right: 40px;
+    object-fit: cover;
+    object-position: center;
 }
-
 
 .notification {
     position: fixed;
@@ -147,7 +150,6 @@ body {
     background-color: #28a745;
 }
 
-/* Add this at the end of your existing CSS */
 .user-dropdown {
     position: relative;
 }

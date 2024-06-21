@@ -287,9 +287,6 @@ body {
     background-color: #0a9396;
     margin: 10px auto 0;
 }
-
-
-
 /* Our Process Section */
 .our-process {
     padding: 50px 20px;
@@ -304,6 +301,7 @@ body {
     margin-bottom: 40px;
     color: #005f73;
     position: relative;
+    z-index: 2;
 }
 
 .our-process h2::after {
@@ -317,23 +315,28 @@ body {
     transform: translateX(-50%);
 }
 
-.process-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+.process-flow {
+    display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
     position: relative;
+    z-index: 2;
 }
 
 .process-step {
     background: white;
-    padding: 20px;
+    padding: 30px 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
+    flex: 1 1 calc(25% - 20px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
+    min-width: 250px; /* Ensure the cards have a minimum width */
+    max-width: 300px; /* Set a maximum width */
 }
 
 .process-step:hover {
@@ -341,10 +344,16 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.process-step .icon {
+    font-size: 36px;
+    color: #0a9396;
+    margin-bottom: 10px;
+}
+
 .process-step h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #0a9396;
+    color: #005f73;
     position: relative;
     z-index: 1;
 }
@@ -365,58 +374,24 @@ body {
     z-index: 0;
 }
 
+/* Remove bubbles for this section */
+.our-process::before,
+.our-process::after {
+    content: none;
+}
+
 @media (max-width: 768px) {
-    .reasons-container, .process-container {
-        grid-template-columns: 1fr;
+    .process-flow {
+        flex-direction: column;
+        align-items: center;
     }
 
     .process-step {
         flex: 1 1 100%;
+        max-width: 500px; /* Increase the max-width for better readability */
+        margin-bottom: 20px;
     }
 }
-
-/* Process Flow Styles */
-.process-flow {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-}
-
-.process-step {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    flex: 1 1 calc(25% - 20px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.process-step:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.process-step .icon {
-    font-size: 36px;
-    color: #0a9396;
-    margin-bottom: 10px;
-}
-
-.process-step h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #005f73;
-}
-
-.process-step p {
-    font-size: 16px;
-    color: #333;
-}
-
-
 
 /* Accordion Styles for FAQs */
 .faqs {
@@ -433,32 +408,28 @@ body {
 
 .faq-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
-    justify-content: center;
+    margin: 50px 0;
 }
 
 .faq-item {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    flex: 1 1 calc(45% - 40px);
-    margin: 10px;
-    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
-    position: relative;
+    cursor: pointer;
+    overflow: hidden; /* Ensures the content is hidden when collapsed */
 }
 
 .faq-item h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #0a9396;
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 20px;
+    margin: 0;
+    color: #005f73;
 }
 
 .faq-item .arrow {
@@ -468,24 +439,27 @@ body {
 }
 
 .faq-item p {
-    font-size: 16px;
-    color: #333;
+    margin-top: 10px;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    margin-top: 10px;
 }
 
 .faq-item.active p {
-    max-height: 200px; /* Adjust as needed */
+    max-height: 200px; /* Adjust according to your content */
 }
 
-.faq-item.active .arrow {
-    transform: rotate(180deg);
+.faq-item .arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
 }
 
 .faq-item.active {
     background-color: #e6f7f9;
+}
+
+.faq-item.active .arrow {
+    transform: rotate(180deg);
 }
 
 /* Modal Styles */

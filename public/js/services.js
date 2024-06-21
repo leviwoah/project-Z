@@ -4,6 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     faqItems.forEach(item => {
         item.addEventListener('click', () => {
+            // Collapse all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('p').style.maxHeight = "0";
+                }
+            });
+
+            // Toggle the clicked item
             item.classList.toggle('active');
             const content = item.querySelector('p');
             if (item.classList.contains('active')) {

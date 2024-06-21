@@ -30,8 +30,6 @@
         </div>
     </nav>
     
-    
-
     <section class="login-section">
         <div class="container">
             <div class="icon">&#128100;</div>
@@ -47,13 +45,16 @@
                     <img id="togglePasswordVisibility" class="toggle-password" src="images/eye.png" alt="Toggle Password Visibility">
                 </div>
                 <div class="form-group remember-me">
-                    <input type="checkbox" id="rememberMe" name="rememberMe">
-                    <label for="rememberMe">Remember Me</label>
-                </div>
-                <div class="form-group">
-                    <button type="button" id="forgotPasswordLink">Forgot Password?</button>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span class="checkbox-span"></span>
+                        Remember Me
+                    </label>
                 </div>
                 <button type="button" onclick="login()">Login</button>
+                <div class="form-group">
+                    <button type="button" id="forgotPasswordLink" class="forgot-password-btn">Forgot Password?</button>
+                </div>
             </form>
             <div id="loginMessage"></div>
         </div>
