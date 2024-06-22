@@ -74,7 +74,7 @@ body {
 .introduction {
     text-align: center;
     padding: 50px 20px;
-    background: linear-gradient(to bottom, #99e5df, #ffffff);
+    background: linear-gradient(to bottom, #99e5df, #f4f4f9);
 
 }
 
@@ -336,7 +336,7 @@ body {
 .benefits {
     padding: 50px 20px;
     text-align: center;
-    background-color: #e6f7f9;
+    background-color: linear-gradient(to top, #99e5df, #f4f4f9);
 }
 
 .benefits h2 {

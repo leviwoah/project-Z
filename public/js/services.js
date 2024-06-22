@@ -54,84 +54,76 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h3>Financial Planning</h3>
                         <p>Our financial planning services are designed to help you achieve your financial goals. We take a comprehensive approach to understand your current financial situation, future goals, and risk tolerance. Our services include:</p>
                         <ul>
-                            <li>Budgeting and saving strategies</li>
-                            <li>Investment planning</li>
-                            <li>Retirement planning</li>
-                            <li>Tax planning</li>
-                            <li>Estate planning</li>
-                        </ul>
-                        <p>Our team of experts will work with you to create a customized plan that ensures your financial future is secure and well-organized.</p>
-                    `;
+                            <li><strong>Budgeting and Saving Strategies:</strong> Tailored plans to help you manage your money effectively.</li>
+                            <li><strong>Investment Planning:</strong> Guidance on how to grow your wealth through diversified investments.</li>
+                            <li><strong>Retirement Planning:</strong> Ensuring you have enough saved for a comfortable retirement.</li>
+                            <li><strong>Tax Planning:</strong> Strategies to minimize your tax liabilities.</li>
+                            <li><strong>Estate Planning:</strong> Making sure your assets are distributed according to your wishes.</li>
+                        </ul>`;
                     break;
                 case 'investment-advice':
                     serviceText = `
                         <h3>Investment Advice</h3>
                         <p>Our investment advice services are tailored to help you grow your wealth through informed and strategic decisions. We offer:</p>
                         <ul>
-                            <li>Portfolio management</li>
-                            <li>Risk assessment and management</li>
-                            <li>Diversification strategies</li>
-                            <li>Market analysis and insights</li>
-                            <li>Investment in stocks, bonds, and real estate</li>
-                        </ul>
-                        <p>We provide continuous monitoring and adjustment of your investment portfolio to ensure optimal performance and alignment with your financial goals.</p>
-                    `;
+                            <li><strong>Portfolio Management:</strong> Constructing and managing a portfolio tailored to your risk tolerance and investment goals.</li>
+                            <li><strong>Risk Assessment and Management:</strong> Identifying potential risks and developing strategies to mitigate them.</li>
+                            <li><strong>Diversification Strategies:</strong> Spreading investments across various asset classes to minimize risk.</li>
+                            <li><strong>Market Analysis and Insights:</strong> Keeping you informed with the latest market trends and opportunities.</li>
+                            <li><strong>Long-term Planning:</strong> Focusing on sustainable growth and wealth preservation.</li>
+                        </ul>`;
                     break;
                 case 'retirement-planning':
                     serviceText = `
                         <h3>Retirement Planning</h3>
-                        <p>Plan for a secure and comfortable retirement with our comprehensive retirement planning services. We help you:</p>
+                        <p>Planning for retirement involves several key steps:</p>
                         <ul>
-                            <li>Determine your retirement needs and goals</li>
-                            <li>Calculate the amount you need to save</li>
-                            <li>Choose the right retirement accounts and investments</li>
-                            <li>Plan for healthcare and other expenses</li>
-                            <li>Create a sustainable withdrawal strategy</li>
+                            <li><strong>Determining Your Retirement Needs:</strong> Estimating how much money you will need to maintain your lifestyle.</li>
+                            <li><strong>Calculating Savings Goals:</strong> Setting realistic savings targets based on your current assets and future income.</li>
+                            <li><strong>Choosing the Right Accounts:</strong> Selecting the most beneficial retirement accounts, such as 401(k)s, IRAs, and Roth IRAs.</li>
+                            <li><strong>Investment Strategy:</strong> Developing a strategy that balances growth and security as you approach retirement.</li>
+                            <li><strong>Withdrawal Planning:</strong> Creating a sustainable withdrawal plan to ensure your savings last throughout retirement.</li>
                         </ul>
-                        <p>Our experts will guide you through every step of the process to ensure you can retire with confidence and peace of mind.</p>
-                    `;
+                        <p>Our advisors guide you through each step, ensuring you are well-prepared for a secure and comfortable retirement.</p>`;
                     break;
                 case 'tax-planning':
                     serviceText = `
                         <h3>Tax Planning</h3>
-                        <p>Optimize your tax strategy with our expert tax planning services. We help you:</p>
+                        <p>Our tax planning services aim to optimize your financial situation by minimizing tax liabilities. We offer:</p>
                         <ul>
-                            <li>Identify tax-saving opportunities</li>
-                            <li>Plan for tax-efficient investments</li>
-                            <li>Understand and leverage tax credits and deductions</li>
-                            <li>Navigate complex tax regulations</li>
-                            <li>Minimize your tax liability</li>
+                            <li><strong>Identifying Tax-saving Opportunities:</strong> Finding deductions, credits, and incentives that reduce your tax burden.</li>
+                            <li><strong>Tax-efficient Investments:</strong> Structuring your investments to maximize after-tax returns.</li>
+                            <li><strong>Comprehensive Tax Strategies:</strong> Integrating tax planning with your overall financial plan to enhance savings.</li>
+                            <li><strong>Regulatory Compliance:</strong> Ensuring all tax filings are accurate and timely.</li>
+                            <li><strong>Year-round Support:</strong> Providing ongoing advice to adapt to changes in tax laws and your financial situation.</li>
                         </ul>
-                        <p>Our team of tax professionals will work with you to create a tax strategy that aligns with your financial goals and maximizes your savings.</p>
-                    `;
+                        <p>We tailor our tax planning services to your unique needs, helping you keep more of what you earn.</p>`;
                     break;
                 case 'estate-planning':
                     serviceText = `
                         <h3>Estate Planning</h3>
-                        <p>Protect your legacy with our comprehensive estate planning services. We help you:</p>
+                        <p>Estate planning ensures your assets are managed and distributed according to your wishes. Our services include:</p>
                         <ul>
-                            <li>Create a will and trusts</li>
-                            <li>Plan for the distribution of your assets</li>
-                            <li>Minimize estate taxes</li>
-                            <li>Designate beneficiaries and guardians</li>
-                            <li>Prepare for incapacity with powers of attorney</li>
+                            <li><strong>Creating Wills and Trusts:</strong> Establishing legal documents to outline your estate distribution.</li>
+                            <li><strong>Asset Distribution Planning:</strong> Ensuring your assets go to the intended beneficiaries efficiently.</li>
+                            <li><strong>Minimizing Estate Taxes:</strong> Developing strategies to reduce the tax burden on your estate.</li>
+                            <li><strong>Designating Beneficiaries and Guardians:</strong> Assigning individuals to receive your assets and care for dependents.</li>
+                            <li><strong>Preparing for Incapacity:</strong> Setting up powers of attorney and healthcare directives.</li>
                         </ul>
-                        <p>Our experts will ensure that your estate plan reflects your wishes and provides for your loved ones.</p>
-                    `;
+                        <p>We help you protect your legacy and provide for your loved ones with a comprehensive estate plan.</p>`;
                     break;
                 case 'insurance-planning':
                     serviceText = `
                         <h3>Insurance Planning</h3>
-                        <p>Secure your assets and protect your family with our tailored insurance planning services. We provide guidance on:</p>
+                        <p>Insurance planning at MintedCo covers various aspects to protect you and your family:</p>
                         <ul>
-                            <li>Life insurance</li>
-                            <li>Health insurance</li>
-                            <li>Disability insurance</li>
-                            <li>Long-term care insurance</li>
-                            <li>Property and casualty insurance</li>
+                            <li><strong>Life Insurance:</strong> Ensuring financial support for your family in the event of your passing.</li>
+                            <li><strong>Health Insurance:</strong> Covering medical expenses and protecting against health-related financial risks.</li>
+                            <li><strong>Disability Insurance:</strong> Providing income in case you are unable to work due to injury or illness.</li>
+                            <li><strong>Long-term Care Insurance:</strong> Covering costs of long-term care services, such as nursing homes or in-home care.</li>
+                            <li><strong>Property and Casualty Insurance:</strong> Protecting your assets from loss or damage due to unforeseen events.</li>
                         </ul>
-                        <p>We will help you choose the right insurance products to meet your needs and ensure comprehensive coverage.</p>
-                    `;
+                        <p>Our advisors help you choose the right insurance products to meet your specific needs and goals.</p>`;
                     break;
             }
 
@@ -149,4 +141,137 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'none';
         }
     });
+
+    // Live Chat Widget Functionality
+    const chatContainer = document.querySelector('.chat-container');
+    const chatHeader = document.querySelector('.chat-header');
+    const chatBody = document.querySelector('.chat-body');
+
+    chatBody.style.display = 'none'; // Hide chat body initially
+
+    chatHeader.addEventListener('click', () => {
+        if (chatBody.style.display === 'none') {
+            chatBody.style.display = 'flex';
+        } else {
+            chatBody.style.display = 'none';
+        }
+    });
+
+    function toggleQuestions() {
+        const questionContainer = document.getElementById('chat-questions');
+        if (questionContainer.style.display === 'none') {
+            questionContainer.style.display = 'block';
+        } else {
+            questionContainer.style.display = 'none';
+        }
+    }
+
+    function handlePredefinedQuestion(question) {
+        addChatMessage('User', question);
+        const response = getResponseForQuestion(question);
+        addChatMessage('Advisor', response);
+    }
+
+    function getResponseForQuestion(question) {
+        const responses = {
+            "What services do you offer?": "We offer a wide range of services including financial planning, investment advice, retirement planning, tax planning, estate planning, and insurance planning.",
+            "How do I get started?": "You can get started by scheduling an initial consultation with one of our experts. Contact us via phone or email to set up an appointment.",
+            "What makes MintedCo different?": "Our personalized approach, comprehensive solutions, and proven track record set us apart from other financial advisory firms.",
+            "Do you offer ongoing support?": "Yes, we provide ongoing support to ensure your financial plan stays on track and adjusts as needed based on your changing needs and goals."
+        };
+        return responses[question] || "I'm here to assist you with any financial queries you have. Could you please provide more details about your question?";
+    }
+
+    function addChatMessage(sender, message) {
+        const chatMessages = document.querySelector('.chat-messages');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message');
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Initialize the chat with a welcome message
+    addChatMessage('Advisor', 'Welcome to MintedCo! How can I assist you today?');
+
+    const questionToggle = document.getElementById('chat-question-toggle');
+    questionToggle.addEventListener('click', toggleQuestions);
+
+    const predefinedQuestions = document.querySelectorAll('.chat-question');
+    predefinedQuestions.forEach(question => {
+        question.addEventListener('click', () => handlePredefinedQuestion(question.innerText));
+    });
+
+    // Basic Three.js setup for Globe
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('globe-container').appendChild(renderer.domElement);
+
+    // Create the globe
+    const textureLoader = new THREE.TextureLoader();
+    const globeTexture = textureLoader.load('/images/earth_texture.jpg', function () {
+        const globeGeometry = new THREE.SphereGeometry(5, 50, 50);
+        const globeMaterial = new THREE.MeshBasicMaterial({ map: globeTexture });
+        const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+        scene.add(globe);
+
+        // Add interactive points (example points)
+        const points = [
+            { lat: 40.7128, lng: -74.0060, name: 'New York' },
+            { lat: 51.5074, lng: -0.1278, name: 'London' },
+            { lat: 35.6895, lng: 139.6917, name: 'Tokyo' }
+        ];
+
+        points.forEach(point => {
+            const { x, y, z } = latLngToVector3(point.lat, point.lng);
+            const pointGeometry = new THREE.SphereGeometry(0.1, 10, 10);
+            const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const pointMesh = new THREE.Mesh(pointGeometry, pointMaterial);
+            pointMesh.position.set(x, y, z);
+            globe.add(pointMesh);
+
+            pointMesh.userData = { name: point.name };
+            pointMesh.on('mouseover', () => showTooltip(point.name, x, y));
+            pointMesh.on('mouseout', hideTooltip);
+        });
+
+        // Position the camera
+        camera.position.z = 10;
+
+        // Render loop
+        const animate = function () {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.002; // Rotate the globe
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    }, undefined, function (error) {
+        console.error('An error occurred while loading the texture:', error);
+    });
+
+    // Utility functions
+    function latLngToVector3(lat, lng) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lng + 180) * (Math.PI / 180);
+        const x = -(5 * Math.sin(phi) * Math.cos(theta));
+        const y = 5 * Math.cos(phi);
+        const z = 5 * Math.sin(phi) * Math.sin(theta);
+        return { x, y, z };
+    }
+
+    function showTooltip(name, x, y) {
+        const tooltip = document.getElementById('globe-tooltip');
+        tooltip.style.left = `${x}px`;
+        tooltip.style.top = `${y}px`;
+        tooltip.innerText = name;
+        tooltip.style.display = 'block';
+    }
+
+    function hideTooltip() {
+        const tooltip = document.getElementById('globe-tooltip');
+        tooltip.style.display = 'none';
+    }
 });
