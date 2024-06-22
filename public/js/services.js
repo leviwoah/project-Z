@@ -142,12 +142,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Live Chat Widget Functionality
+    // Chatbox closed by default
     const chatContainer = document.querySelector('.chat-container');
     const chatHeader = document.querySelector('.chat-header');
     const chatBody = document.querySelector('.chat-body');
+    const chatQuestions = document.querySelector('.chat-questions');
+    const questionToggle = document.getElementById('chat-question-toggle');
 
     chatBody.style.display = 'none'; // Hide chat body initially
+    chatQuestions.style.display = 'none'; // Hide questions initially
 
     chatHeader.addEventListener('click', () => {
         if (chatBody.style.display === 'none') {
@@ -157,22 +160,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    questionToggle.addEventListener('click', toggleQuestions);
+
+    const predefinedQuestions = document.querySelectorAll('.chat-question');
+    predefinedQuestions.forEach(question => {
+        question.addEventListener('click', () => handlePredefinedQuestion(question.innerText));
+    });
+
     function toggleQuestions() {
-        const questionContainer = document.getElementById('chat-questions');
-        if (questionContainer.style.display === 'none') {
-            questionContainer.style.display = 'block';
+        if (chatQuestions.style.display === 'none') {
+            chatQuestions.style.display = 'block';
         } else {
-            questionContainer.style.display = 'none';
+            chatQuestions.style.display = 'none';
         }
     }
 
     function handlePredefinedQuestion(question) {
         addChatMessage('User', question);
-        const response = getResponseForQuestion(question);
+        const response = getChatResponse(question);
         addChatMessage('Advisor', response);
+        chatQuestions.style.display = 'none'; // Hide questions after selecting one
     }
 
-    function getResponseForQuestion(question) {
+    function getChatResponse(question) {
         const responses = {
             "What services do you offer?": "We offer a wide range of services including financial planning, investment advice, retirement planning, tax planning, estate planning, and insurance planning.",
             "How do I get started?": "You can get started by scheduling an initial consultation with one of our experts. Contact us via phone or email to set up an appointment.",
@@ -188,90 +198,30 @@ document.addEventListener('DOMContentLoaded', function () {
         messageElement.classList.add('chat-message');
         messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
         chatMessages.appendChild(messageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
     }
 
     // Initialize the chat with a welcome message
     addChatMessage('Advisor', 'Welcome to MintedCo! How can I assist you today?');
 
-    const questionToggle = document.getElementById('chat-question-toggle');
-    questionToggle.addEventListener('click', toggleQuestions);
 
-    const predefinedQuestions = document.querySelectorAll('.chat-question');
-    predefinedQuestions.forEach(question => {
-        question.addEventListener('click', () => handlePredefinedQuestion(question.innerText));
-    });
+});
 
-    // Basic Three.js setup for Globe
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('globe-container').appendChild(renderer.domElement);
 
-    // Create the globe
-    const textureLoader = new THREE.TextureLoader();
-    const globeTexture = textureLoader.load('/images/earth_texture.jpg', function () {
-        const globeGeometry = new THREE.SphereGeometry(5, 50, 50);
-        const globeMaterial = new THREE.MeshBasicMaterial({ map: globeTexture });
-        const globe = new THREE.Mesh(globeGeometry, globeMaterial);
-        scene.add(globe);
+document.addEventListener('DOMContentLoaded', function () {
+    const timelineItems = document.querySelectorAll('.timeline-item');
 
-        // Add interactive points (example points)
-        const points = [
-            { lat: 40.7128, lng: -74.0060, name: 'New York' },
-            { lat: 51.5074, lng: -0.1278, name: 'London' },
-            { lat: 35.6895, lng: 139.6917, name: 'Tokyo' }
-        ];
-
-        points.forEach(point => {
-            const { x, y, z } = latLngToVector3(point.lat, point.lng);
-            const pointGeometry = new THREE.SphereGeometry(0.1, 10, 10);
-            const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-            const pointMesh = new THREE.Mesh(pointGeometry, pointMaterial);
-            pointMesh.position.set(x, y, z);
-            globe.add(pointMesh);
-
-            pointMesh.userData = { name: point.name };
-            pointMesh.on('mouseover', () => showTooltip(point.name, x, y));
-            pointMesh.on('mouseout', hideTooltip);
+    function handleScroll() {
+        timelineItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
         });
-
-        // Position the camera
-        camera.position.z = 10;
-
-        // Render loop
-        const animate = function () {
-            requestAnimationFrame(animate);
-            globe.rotation.y += 0.002; // Rotate the globe
-            renderer.render(scene, camera);
-        };
-
-        animate();
-    }, undefined, function (error) {
-        console.error('An error occurred while loading the texture:', error);
-    });
-
-    // Utility functions
-    function latLngToVector3(lat, lng) {
-        const phi = (90 - lat) * (Math.PI / 180);
-        const theta = (lng + 180) * (Math.PI / 180);
-        const x = -(5 * Math.sin(phi) * Math.cos(theta));
-        const y = 5 * Math.cos(phi);
-        const z = 5 * Math.sin(phi) * Math.sin(theta);
-        return { x, y, z };
     }
 
-    function showTooltip(name, x, y) {
-        const tooltip = document.getElementById('globe-tooltip');
-        tooltip.style.left = `${x}px`;
-        tooltip.style.top = `${y}px`;
-        tooltip.innerText = name;
-        tooltip.style.display = 'block';
-    }
-
-    function hideTooltip() {
-        const tooltip = document.getElementById('globe-tooltip');
-        tooltip.style.display = 'none';
-    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
 });

@@ -85,14 +85,7 @@
                 <button class="details-btn" data-service="insurance-planning">Learn More</button>
             </div>
         </div>
-    </section>
-
-    <section class="global-reach">
-        <h2>Global Reach</h2>
-        <div id="globe-container" style="height: 500px;"></div>
-        <div id="globe-tooltip" style="position: absolute; display: none; background: #fff; padding: 5px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"></div>
-    </section>
-    
+    </section>  
 
     <section class="interactive-flowchart">
         <h2>Our Process Flow</h2>
@@ -122,55 +115,67 @@
                 </div>
             </div>
         </div>
-    </section>    
-    
-    <section class="interactive-timeline">
-        <h2>Our Journey</h2>
-        <div class="timeline-container">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>2020</h3>
-                    <p>We started our journey with a vision to revolutionize financial planning.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>2021</h3>
-                    <p>Introduced our first AI-powered financial advisory tool.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>2022</h3>
-                    <p>Expanded our services globally, reaching over 10,000 clients.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>2023</h3>
-                    <p>Launched interactive tools and real-time market analysis features.</p>
-                </div>
-            </div>
-            <!-- Add more timeline items as needed -->
-        </div>
-    </section>
-    
+    </section>  
 
-   <!-- Live Chat Widget -->
-<div id="live-chat" class="chat-container">
-    <div class="chat-header" onclick="toggleChat()">
-        <span>MintedCo Virtual Advisor</span>
-        <span id="chat-toggle-icon">-</span>
-    </div>
-    <div id="chat-body" class="chat-body">
-        <div id="chat-messages" class="chat-messages"></div>
-        <div id="chat-questions" class="chat-questions">
-            <div class="chat-question" onclick="handlePredefinedQuestion('What services do you offer?')">What services do you offer?</div>
-            <div class="chat-question" onclick="handlePredefinedQuestion('How do I get started?')">How do I get started?</div>
-            <div class="chat-question" onclick="handlePredefinedQuestion('What makes MintedCo different?')">What makes MintedCo different?</div>
-            <div class="chat-question" onclick="handlePredefinedQuestion('Do you offer ongoing support?')">Do you offer ongoing support?</div>
+    <h2 class="timeline-header">Our Journey</h2>
+    <div class="timeline-container">
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <h3>Founded</h3>
+                <p>Our company was founded in 2010 with a mission to revolutionize financial planning.</p>
+            </div>
         </div>
-        <div id="chat-question-toggle" onclick="toggleQuestions()">Q</div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <h3>First Major Client</h3>
+                <p>In 2012, we secured our first major client, establishing our reputation in the industry.</p>
+            </div>
+        </div>
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <h3>Expansion</h3>
+                <p>By 2015, we expanded our services globally, reaching clients across multiple continents.</p>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <h3>New Headquarters</h3>
+                <p>In 2018, we moved to our new headquarters, providing a state-of-the-art facility for our team and clients.</p>
+            </div>
+        </div>
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <h3>Innovation Award</h3>
+                <p>In 2020, we received the Innovation Award for our cutting-edge financial planning software.</p>
+            </div>
+        </div>
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <h3>Future Goals</h3>
+                <p>Looking ahead, we aim to continue leading the industry with innovative solutions and exceptional service.</p>
+            </div>
+        </div>
+    </div>
+    
+        
+    
+   <!-- Live Chat Widget -->
+   <div id="chat-question-toggle" class="chat-question-toggle">Q</div>
+<div class="chat-container">
+    <div class="chat-header">
+        MintedCo Virtual Advisor
+        <div class="chat-header-close" onclick="toggleChat()">-</div>
+    </div>
+    <div class="chat-body">
+        <div class="chat-messages">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="chat-questions">
+            <div class="chat-question">What services do you offer?</div>
+            <div class="chat-question">How do I get started?</div>
+            <div class="chat-question">What makes MintedCo different?</div>
+            <div class="chat-question">Do you offer ongoing support?</div>
+        </div>
     </div>
 </div>
 
@@ -207,8 +212,7 @@
         </div>
     </footer>
 
-    <script src="/js/services-video-cycle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="/js/services-video-cycle.js"></script>  
     <script src="/js/services.js"></script>
     <script src="/js/login.js"></script>
     <script src="js/nav.js"></script>

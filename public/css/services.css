@@ -155,7 +155,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
-    z-index: 9999; /* Ensure the chatbox is on top */
+    z-index: 1000; /* Ensure it's above other elements */
 }
 
 .chat-header {
@@ -165,6 +165,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+}
+
+.chat-header-close {
     cursor: pointer;
 }
 
@@ -237,14 +241,24 @@ body {
 }
 
 #chat-question-toggle {
-    display: none;
-    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #0a9396;
     color: white;
-    padding: 5px 10px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    margin: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    transition: background-color 0.3s ease;
+}
+
+#chat-question-toggle:hover {
+    background-color: #005f73;
 }
 
 @keyframes fadeIn {
@@ -255,96 +269,75 @@ body {
         opacity: 1;
     }
 }
-/* Interactive Timeline Styles */
-.interactive-timeline {
-    padding: 50px 20px;
-    background-color: #f4f4f9;
+/* Timeline Section */
+.timeline-header {
     text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #005f73;
 }
 
 .timeline-container {
     position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 10px 0;
-}
-
-.timeline-item {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    position: relative;
     width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
 }
 
-.timeline-item:nth-child(odd) {
-    justify-content: flex-start;
-}
-
-.timeline-item::before {
+.timeline-container::before {
     content: '';
     position: absolute;
-    width: 6px;
-    height: 100%;
-    background-color: #e9d8a6;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background-color: #005f73; /* Change to your preferred color */
+    border-radius: 2px; /* Make the tips rounded */
 }
 
-.timeline-content {
-    background-color: white;
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smoother and slower transition */
+}
+
+.timeline-item.left {
+    left: 0;
+}
+
+.timeline-item.right {
+    left: 50%;
+}
+
+.timeline-item .timeline-content {
+    background-color: #fff;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    width: 40%;
-    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smoother and slower transition */
 }
 
-.timeline-content h3 {
-    margin-top: 0;
-    font-size: 24px;
-    color: #005f73;
-}
-
-.timeline-content p {
-    font-size: 16px;
-    color: #333;
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-    transform: translateX(-100%);
+.timeline-item.left .timeline-content {
+    margin-right: 20px;
     text-align: right;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
-    transform: translateX(100%);
+.timeline-item.right .timeline-content {
+    margin-left: 20px;
     text-align: left;
 }
 
-@media screen and (max-width: 768px) {
-    .timeline-item {
-        justify-content: center;
-    }
+.timeline-item:hover .timeline-content {
+    transform: scale(1.05); /* Smooth scale animation on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Smooth shadow animation on hover */
+}
 
-    .timeline-content {
-        width: 80%;
-        text-align: center;
-    }
-
-    .timeline-content h3 {
-        font-size: 20px;
-    }
-
-    .timeline-content p {
-        font-size: 14px;
-    }
-
-    .timeline-item:nth-child(odd) .timeline-content,
-    .timeline-item:nth-child(even) .timeline-content {
-        transform: translateX(0);
-    }
+.timeline-item .timeline-content.active {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Interactive Flowchart Styles */
@@ -404,31 +397,6 @@ body {
 
 .flowchart-item:last-child::after {
     display: none;
-}
-
-/* Global Reach Section */
-.global-reach {
-    position: relative;
-    height: 500px;
-    background-color: #f4f4f9;
-    text-align: center;
-    padding: 50px 20px;
-    margin-bottom: 500px;
-}
-
-#globe-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-#globe-tooltip {
-    position: absolute;
-    display: none;
-    background: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Accordion Styles for FAQs */
