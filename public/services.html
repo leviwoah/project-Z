@@ -157,27 +157,24 @@
         </div>
     </div>
     
-        
-    
-   <!-- Live Chat Widget -->
-   <div id="chat-question-toggle" class="chat-question-toggle">Q</div>
-<div class="chat-container">
-    <div class="chat-header">
-        MintedCo Virtual Advisor
-        <div class="chat-header-close" onclick="toggleChat()">-</div>
+<!-- Live Chat Widget -->
+<div id="chat-toggle" class="chat-toggle">💬</div>
+<div class="chat-widget">
+    <div class="chat-widget-header">
+        <div class="chat-title">MintedCo Virtual Advisor</div>
+        <div class="chat-close">✖</div>
     </div>
-    <div class="chat-body">
-        <div class="chat-messages">
+    <div class="chat-widget-body">
+        <div class="chat-messages" id="chat-messages">
             <!-- Chat messages will be appended here -->
         </div>
-        <div class="chat-questions">
-            <div class="chat-question">What services do you offer?</div>
-            <div class="chat-question">How do I get started?</div>
-            <div class="chat-question">What makes MintedCo different?</div>
-            <div class="chat-question">Do you offer ongoing support?</div>
+        <div class="chat-widget-footer">
+            <input type="text" id="user-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 </div>
+
 
     <section class="faqs">
         <h2>Frequently Asked Questions</h2>

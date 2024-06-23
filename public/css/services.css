@@ -142,37 +142,47 @@ body {
 
 
 
-
-
-/* Chat Section */
-.chat-container {
+/* Chat Widget */
+.chat-widget {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 350px;
+    width: 400px;
     max-width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
-    z-index: 1000; /* Ensure it's above other elements */
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    transition: transform 0.3s ease, right 0.3s ease;
 }
 
-.chat-header {
+.chat-widget.show {
+    display: flex; /* Show when the 'show' class is added */
+}
+
+.chat-widget-header {
     background-color: #005f73;
-    color: white;
+    color: #fff;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.chat-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.chat-close {
     cursor: pointer;
 }
 
-.chat-header-close {
-    cursor: pointer;
-}
-
-.chat-body {
+.chat-widget-body {
     display: flex;
     flex-direction: column;
     height: 500px;
@@ -194,13 +204,13 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
-.chat-questions {
-    display: block;
+.chat-widget-footer {
+    display: flex;
     padding: 10px;
     background-color: #f4f4f9;
 }
 
-.chat-footer input {
+.chat-widget-footer input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
@@ -208,57 +218,44 @@ body {
     margin-right: 10px;
 }
 
-.chat-footer button {
+.chat-widget-footer button {
     padding: 10px 20px;
     background-color: #005f73;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.chat-footer button:hover {
+.chat-widget-footer button:hover {
     background-color: #0a9396;
 }
 
-#chat-questions {
-    display: block;
-}
-
-.chat-question {
-    background-color: #e9d8a6;
-    color: #005f73;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.chat-question:hover {
-    background-color: #94d2bd;
-}
-
-#chat-question-toggle {
+.chat-toggle {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #0a9396;
-    color: white;
-    width: 40px;
-    height: 40px;
+    color: #fff;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
     position: fixed;
-    top: 20px;
-    left: 20px;
+    bottom: 20px;
+    right: 20px;
     z-index: 1001;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, right 0.3s ease;
 }
 
-#chat-question-toggle:hover {
+.chat-toggle:hover {
     background-color: #005f73;
+}
+
+.move-left {
+    right: 420px; /* Moves the toggle button to the left of the chat box */
+    transform: translateX(-10px); /* Smooth transition */
 }
 
 @keyframes fadeIn {
@@ -269,6 +266,7 @@ body {
         opacity: 1;
     }
 }
+
 /* Timeline Section */
 .timeline-header {
     text-align: center;

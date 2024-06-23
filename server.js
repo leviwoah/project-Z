@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -8,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
-require('dotenv').config(); // Load environment variables
+const OpenAI = require('openai'); // Updated for OpenAI v4 SDK
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -288,23 +289,46 @@ app.post('/update-profile', upload.single('avatar'), (req, res) => {
     res.status(200).json({ message: 'Profile updated successfully', avatar: avatarPath });
 });
 
-// Password update endpoint
-app.post('/update-password', (req, res) => {
-    const { username, currentPassword, newPassword } = req.body;
-
-    // Log received data to verify
-    console.log('Received update-password request:', req.body);
-
-    const user = users[username];
-
-    if (!user || user.password !== currentPassword) {
-        return res.status(400).json({ error: 'Invalid current password or user not found' });
-    }
-
-    user.password = newPassword;
-    saveData();
-    res.status(200).json({ message: 'Password updated successfully' });
+// Initialize OpenAI configuration
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
 });
+
+const retry = async (fn, retries = 3, backoff = 300) => {
+    try {
+        return await fn();
+    } catch (error) {
+        if (retries > 1 && error.code === 'insufficient_quota') {
+            await new Promise(resolve => setTimeout(resolve, backoff));
+            return retry(fn, retries - 1, backoff * 2);
+        } else {
+            throw error;
+        }
+    }
+};
+
+// Chat endpoint
+app.post('/chat', async (req, res) => {
+    const { message } = req.body;
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{ "role": "system", "content": "You are a helpful assistant." }, { "role": "user", "content": message }],
+            max_tokens: 80, // Adjust as needed for the response length
+            temperature: 0.7, // Adjust as needed for the response creativity/randomness
+            n: 1, // Number of completions to generate (can be increased for more options)
+            stop: null, // Can be used to stop the completion generation at a specific token (e.g., "\n")
+        });
+        res.status(200).json({ message: response.choices[0].message });
+    } catch (error) {
+        if (error.code === 'insufficient_quota') {
+            res.status(429).json({ error: 'You have exceeded your quota. Please check your plan and billing details.' });
+        } else {
+            res.status(500).json({ error: 'An error occurred while processing your request.' });
+        }
+    }
+});
+
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

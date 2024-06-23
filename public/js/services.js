@@ -142,58 +142,58 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Chatbox closed by default
-    const chatContainer = document.querySelector('.chat-container');
-    const chatHeader = document.querySelector('.chat-header');
-    const chatBody = document.querySelector('.chat-body');
-    const chatQuestions = document.querySelector('.chat-questions');
-    const questionToggle = document.getElementById('chat-question-toggle');
+// Chatbox closed by default
+    const chatWidget = document.querySelector('.chat-widget');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatClose = document.querySelector('.chat-close');
 
-    chatBody.style.display = 'none'; // Hide chat body initially
-    chatQuestions.style.display = 'none'; // Hide questions initially
-
-    chatHeader.addEventListener('click', () => {
-        if (chatBody.style.display === 'none') {
-            chatBody.style.display = 'flex';
+    function toggleChatWidget() {
+        console.log('toggleChatWidget called');
+        if (chatWidget.classList.contains('show')) {
+            chatWidget.classList.remove('show');
+            chatToggle.classList.remove('move-left');
+            console.log('Chat widget hidden');
         } else {
-            chatBody.style.display = 'none';
-        }
-    });
-
-    questionToggle.addEventListener('click', toggleQuestions);
-
-    const predefinedQuestions = document.querySelectorAll('.chat-question');
-    predefinedQuestions.forEach(question => {
-        question.addEventListener('click', () => handlePredefinedQuestion(question.innerText));
-    });
-
-    function toggleQuestions() {
-        if (chatQuestions.style.display === 'none') {
-            chatQuestions.style.display = 'block';
-        } else {
-            chatQuestions.style.display = 'none';
+            chatWidget.classList.add('show');
+            chatToggle.classList.add('move-left');
+            console.log('Chat widget shown');
         }
     }
 
-    function handlePredefinedQuestion(question) {
-        addChatMessage('User', question);
-        const response = getChatResponse(question);
-        addChatMessage('Advisor', response);
-        chatQuestions.style.display = 'none'; // Hide questions after selecting one
+    chatToggle.addEventListener('click', toggleChatWidget);
+    chatClose.addEventListener('click', toggleChatWidget);
+
+    window.sendMessage = function sendMessage() {
+        const userInput = document.getElementById('user-input');
+        const userMessage = userInput.value.trim();
+        if (userMessage) {
+            addChatMessage('User', userMessage);
+            getAIResponse(userMessage);
+            userInput.value = '';
+        }
     }
 
-    function getChatResponse(question) {
-        const responses = {
-            "What services do you offer?": "We offer a wide range of services including financial planning, investment advice, retirement planning, tax planning, estate planning, and insurance planning.",
-            "How do I get started?": "You can get started by scheduling an initial consultation with one of our experts. Contact us via phone or email to set up an appointment.",
-            "What makes MintedCo different?": "Our personalized approach, comprehensive solutions, and proven track record set us apart from other financial advisory firms.",
-            "Do you offer ongoing support?": "Yes, we provide ongoing support to ensure your financial plan stays on track and adjusts as needed based on your changing needs and goals."
-        };
-        return responses[question] || "I'm here to assist you with any financial queries you have. Could you please provide more details about your question?";
+    function getAIResponse(message) {
+        fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const aiMessage = data.response;
+                addChatMessage('Advisor', aiMessage);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addChatMessage('Advisor', 'Sorry, something went wrong. Please try again later.');
+            });
     }
 
     function addChatMessage(sender, message) {
-        const chatMessages = document.querySelector('.chat-messages');
+        const chatMessages = document.getElementById('chat-messages');
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message');
         messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
@@ -203,9 +203,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize the chat with a welcome message
     addChatMessage('Advisor', 'Welcome to MintedCo! How can I assist you today?');
-
-
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
