@@ -79,7 +79,7 @@ app.get('/get-user', (req, res) => {
     });
 });
 
-// Signup endpoint with validation, rate limiting, and reCAPTCHA verification
+// Signup endpoint with validation, rate limiting,
 app.post('/signup', signupLimiter, [
     body('username').notEmpty().withMessage('Username is required'),
     body('email').isEmail().withMessage('Invalid email address'),

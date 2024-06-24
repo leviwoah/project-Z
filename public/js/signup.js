@@ -14,14 +14,7 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-function onClick(token) {
-    if (document.getElementById('signupButton').disabled) {
-        return;
-    }
-    signup(token);
-}
-
-function signup(token) {
+function signup() {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -46,7 +39,7 @@ function signup(token) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, email, password, recaptchaToken: token })
+        body: JSON.stringify({ username, email, password })
     })
     .then(response => {
         if (!response.ok) {
@@ -156,9 +149,15 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
     document.getElementById('password').addEventListener('input', checkPasswordStrength);
-    
-   
+
+    const signupButton = document.getElementById('signupButton');
+    if (!signupButton.dataset.listener) {
+        signupButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (!signupButton.disabled) {
+                signup();
+            }
+        });
         signupButton.dataset.listener = true;
     }
-);
-
+});
