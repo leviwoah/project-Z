@@ -157,19 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
     document.getElementById('password').addEventListener('input', checkPasswordStrength);
     
-    const signupButton = document.getElementById('signupButton');
-    if (!signupButton.dataset.listener) {
-        signupButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (!signupButton.disabled) {
-                signupButton.disabled = true;
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV', {action: 'submit'}).then(function(token) {
-                        onClick(token);
-                    });
-                });
-            }
-        });
+   
         signupButton.dataset.listener = true;
     }
-});
+);
+
