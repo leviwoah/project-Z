@@ -15,6 +15,9 @@ function validateEmail(email) {
 }
 
 function onClick(token) {
+    if (document.getElementById('signupButton').disabled) {
+        return;
+    }
     signup(token);
 }
 
@@ -22,16 +25,21 @@ function signup(token) {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const signupButton = document.getElementById('signupButton');
 
     if (!validateEmail(email)) {
         showNotification('Invalid email address', 'error');
+        signupButton.disabled = false;
         return;
     }
 
-    if (!token) {
-        showNotification('Please complete the CAPTCHA', 'error');
+    if (password.length < 6) {
+        showNotification('Password must be at least 6 characters long', 'error');
+        signupButton.disabled = false;
         return;
     }
+
+    signupButton.disabled = true;
 
     fetch('/signup', {
         method: 'POST',
@@ -40,9 +48,16 @@ function signup(token) {
         },
         body: JSON.stringify({ username, email, password, recaptchaToken: token })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
+        }
+        return response.json();
+    })
     .then(data => {
-        if (data.error) {
+        if (data.errors) {
+            showNotification(data.errors.map(err => err.msg).join(', '), 'error');
+        } else if (data.error) {
             showNotification(data.error, 'error');
         } else {
             showNotification('Signup successful! You can now log in.', 'success');
@@ -51,7 +66,12 @@ function signup(token) {
             }, 2000);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        showNotification(error.message, 'error');
+    })
+    .finally(() => {
+        signupButton.disabled = false;
+    });
 }
 
 function logout() {
@@ -136,11 +156,20 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
     document.getElementById('password').addEventListener('input', checkPasswordStrength);
-    document.getElementById('signupButton').addEventListener('click', () => {
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV', {action: 'submit'}).then(function(token) {
-                onClick(token);
-            });
+    
+    const signupButton = document.getElementById('signupButton');
+    if (!signupButton.dataset.listener) {
+        signupButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (!signupButton.disabled) {
+                signupButton.disabled = true;
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6Le9qP0pAAAAAGGyGtqWZfuYdfRRdkjbRjJPaTDV', {action: 'submit'}).then(function(token) {
+                        onClick(token);
+                    });
+                });
+            }
         });
-    });
+        signupButton.dataset.listener = true;
+    }
 });

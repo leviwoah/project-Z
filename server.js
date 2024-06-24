@@ -58,8 +58,8 @@ loadData();
 
 // Rate limit for signup endpoint
 const signupLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // Limit each IP to 5 requests per windowMs
+    windowMs: 1 * 60 * 1000, // 15 minutes
+    max: 99, // Limit each IP to 5 requests per windowMs
     message: 'Too many signup attempts from this IP, please try again after 15 minutes'
 });
 
@@ -85,8 +85,10 @@ app.post('/signup', signupLimiter, [
     body('email').isEmail().withMessage('Invalid email address'),
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ], async (req, res) => {
+    console.log('Signup endpoint hit');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('Validation errors:', errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 
@@ -96,32 +98,46 @@ app.post('/signup', signupLimiter, [
     try {
         const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`);
         if (!response.data.success) {
+            console.log('reCAPTCHA verification failed');
             return res.status(400).json({ error: 'reCAPTCHA verification failed' });
         }
     } catch (error) {
+        console.error('Error verifying reCAPTCHA:', error);
         return res.status(500).json({ error: 'Error verifying reCAPTCHA' });
     }
 
     if (users[username] || Object.values(users).some(user => user.email === email)) {
+        console.log('User already exists:', { username, email });
         return res.status(400).json({ error: 'User already exists' });
     }
 
     users[username] = { email, password };
     portfolios[username] = [];
     saveData();
+    console.log('User created successfully:', { username, email });
     res.status(200).json({ message: 'User created successfully' });
 });
+
 
 // Login endpoint
 app.post('/login', (req, res) => {
     const { usernameOrEmail, password } = req.body;
+    console.log(`Login attempt: ${usernameOrEmail} with password: ${password}`);
+
     const user = users[usernameOrEmail] || Object.values(users).find(user => user.email === usernameOrEmail);
-    if (!user || user.password !== password) {
+    if (!user) {
+        console.log('User not found');
         return res.status(400).json({ error: 'Invalid username/email or password' });
     }
+
+    if (user.password !== password) {
+        console.log('Invalid password');
+        return res.status(400).json({ error: 'Invalid username/email or password' });
+    }
+
+    console.log('Login successful');
     res.status(200).json({ message: 'Login successful', username: Object.keys(users).find(key => users[key] === user) });
 });
-
 // Logout endpoint
 app.post('/logout', (req, res) => {
     res.status(200).json({ message: 'Logout successful' });

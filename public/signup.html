@@ -35,7 +35,7 @@
         <div class="container">
             <div class="icon">&#128100;</div>
             <h2>Sign Up</h2>
-            <form id="signupForm">
+            <form id="signupForm" onsubmit="return false;">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -62,6 +62,7 @@
             <div id="signupMessage"></div>
         </div>
     </section>
+    
     
     <script src="js/signup.js"></script>
     <script src="js/nav.js"></script>

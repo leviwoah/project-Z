@@ -135,11 +135,14 @@ body {
 
 .intro-animation {
     text-align: center;
+    position: relative;
+    justify-items: center;
+    
 }
 
 .intro-animation img {
-    width: 100%;
-    max-width: 500px;
+    height: 20px;
+    width: 60%;
     animation: float 6s ease-in-out infinite;
 }
 
