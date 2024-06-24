@@ -294,33 +294,40 @@ app.post('/contact', (req, res) => {
 
 // Profile update endpoint
 app.post('/update-profile', upload.single('avatar'), (req, res) => {
-    const { username } = req.body;
+    const { username, phone, address, linkedin, twitter, bio } = req.body;
     const user = users[username];
 
     if (!user) {
         return res.status(400).json({ error: 'User not found' });
     }
 
-    // Update email if provided (not required for this case)
-    if (req.body.email) {
-        user.email = req.body.email;
-    }
+    user.phone = phone;
+    user.address = address;
+    user.linkedin = linkedin;
+    user.twitter = twitter;
+    user.bio = bio;
 
-    // Update avatar if provided
-    let avatarPath;
     if (req.file) {
-        avatarPath = `/uploads/${req.file.filename}`;
-        user.avatar = avatarPath;
+        user.avatar = `/uploads/${req.file.filename}`;
     }
 
     saveData();
-
-    res.status(200).json({ message: 'Profile updated successfully', avatar: avatarPath });
+    res.status(200).json({ message: 'Profile updated successfully', avatar: user.avatar });
 });
 
-// Initialize OpenAI configuration
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+// Delete Account Endpoint
+app.post('/delete-account', (req, res) => {
+    const { username } = req.body;
+
+    if (!users[username]) {
+        return res.status(400).json({ error: 'User not found' });
+    }
+
+    delete users[username];
+    delete portfolios[username];
+    saveData();
+
+    res.status(200).json({ message: 'Account deleted successfully' });
 });
 
 const retry = async (fn, retries = 3, backoff = 300) => {
@@ -336,6 +343,10 @@ const retry = async (fn, retries = 3, backoff = 300) => {
     }
 };
 
+// Initialize OpenAI configuration
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+});
 // Chat endpoint
 app.post('/chat', async (req, res) => {
     const { message } = req.body;

@@ -28,7 +28,6 @@
             </div>
         </div>
     </nav>
-    
     <section class="hero">
         <video autoplay muted loop id="index-hero-video" class="hero-video">
             <source src="video/2450251-uhd_3840_2160_30fps.mp4" type="video/mp4">
@@ -36,29 +35,30 @@
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content" id="heroContent">
-            <h1>Empowering Your Financial Future</h1>
-            <p>Smart Investments. Secure Savings. Bright Future.</p>
+            <h1 id="heroTitle">Empowering Your Financial Future</h1>
+            <p id="heroSubtitle">Smart Investments. Secure Savings. Bright Future.</p>
             <a href="signup.html" class="cta-button" id="heroCtaButton">Get Started</a>
         </div>
     </section>
+    
 
     <!-- Live Chat Widget -->
-<div id="chat-toggle" class="chat-toggle">💬</div>
-<div class="chat-widget">
-    <div class="chat-widget-header">
-        <div class="chat-title">MintedCo Virtual Advisor</div>
-        <div class="chat-close">✖</div>
-    </div>
-    <div class="chat-widget-body">
-        <div class="chat-messages" id="chat-messages">
-            <!-- Chat messages will be appended here -->
+    <div id="chat-toggle" class="chat-toggle">💬</div>
+    <div class="chat-widget">
+        <div class="chat-widget-header">
+            <div class="chat-title">MintedCo Virtual Advisor</div>
+            <div class="chat-close">✖</div>
         </div>
-        <div class="chat-widget-footer">
-            <input type="text" id="user-input" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
+        <div class="chat-widget-body">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Chat messages will be appended here -->
+            </div>
+            <div class="chat-widget-footer">
+                <input type="text" id="user-input" placeholder="Type your message..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
-</div>
 
     <section class="introduction">
         <div class="intro-header">
@@ -203,7 +203,6 @@
 
     <script src="js/index-video-cycle.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/login.js"></script>
     <script src="js/nav.js"></script>
 </body>
 </html>
