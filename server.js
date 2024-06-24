@@ -10,7 +10,6 @@ const axios = require('axios');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
 const OpenAI = require('openai'); // Updated for OpenAI v4 SDK
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -104,6 +103,33 @@ app.post('/signup', signupLimiter, [
     saveData();
     console.log('User created successfully:', { username, email });
     res.status(200).json({ message: 'User created successfully' });
+});
+
+// Stock data endpoint
+app.get('/api/stocks', async (req, res) => {
+    const apiKey = process.env.FINNHUB_API_KEY;
+    const symbols = ['AAPL', 'GOOGL', 'AMZN', 'MSFT', 'TSLA', 'META', 'NFLX', 'NVDA', 'BABA', 'UBER'];
+    const promises = symbols.map(symbol => 
+        axios.get(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`)
+            .then(response => {
+                const data = response.data;
+                if (!data.c) {
+                    return { symbol: symbol, price: 'N/A', change: 0 };
+                }
+                return {
+                    symbol: symbol,
+                    price: parseFloat(data.c).toFixed(2),
+                    change: parseFloat(data.d).toFixed(2)
+                };
+            })
+            .catch(error => {
+                console.error('Error fetching data for symbol:', symbol, error);
+                return { symbol: symbol, price: 'N/A', change: 0 };
+            })
+    );
+
+    const stocks = await Promise.all(promises);
+    res.json(stocks);
 });
 
 // Login endpoint
@@ -331,7 +357,6 @@ app.post('/chat', async (req, res) => {
         }
     }
 });
-
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

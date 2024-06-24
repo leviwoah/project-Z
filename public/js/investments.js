@@ -1,36 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     const stockList = document.getElementById('stock-list');
-    const apiKey = 'cpk8afpr01qs6dmbuhogcpk8afpr01qs6dmbuhp0'; // Your Finnhub API key
 
     async function fetchStockData() {
-        const symbols = ['AAPL', 'GOOGL', 'AMZN', 'MSFT', 'TSLA', 'META', 'NFLX', 'NVDA', 'BABA', 'UBER'];
-        const promises = symbols.map(symbol => 
-            fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(`Data for ${symbol}:`, data);
-                    if (!data.c) {
-                        console.error(`No price data for ${symbol}`);
-                        return { symbol: symbol, price: 'N/A', change: 0 };
-                    }
-                    return {
-                        symbol: symbol,
-                        price: parseFloat(data.c).toFixed(2),
-                        change: parseFloat(data.d).toFixed(2)
-                    };
-                })
-                .catch(error => {
-                    console.error('Error fetching data for symbol:', symbol, error);
-                    return { symbol: symbol, price: 'N/A', change: 0 };
-                })
-        );
-
-        return Promise.all(promises);
+        try {
+            const response = await fetch('/api/stocks');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        } catch (error) {
+            console.error('Error fetching stock data:', error);
+            return [];
+        }
     }
 
     async function updateStockTicker() {
@@ -121,15 +102,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const chatClose = document.querySelector('.chat-close');
 
     function toggleChatWidget() {
-        console.log('toggleChatWidget called');
         if (chatWidget.classList.contains('show')) {
             chatWidget.classList.remove('show');
             chatToggle.classList.remove('move-left');
-            console.log('Chat widget hidden');
         } else {
             chatWidget.classList.add('show');
             chatToggle.classList.add('move-left');
-            console.log('Chat widget shown');
         }
     }
 
