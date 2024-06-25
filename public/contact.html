@@ -21,15 +21,16 @@
             <li id="loginLink"><a href="login.html">Login</a></li>
             <li id="signupLink"><a href="signup.html">Sign Up</a></li>
         </ul>
-        <div class="user-dropdown" id="userDropdown" style="display: none;">
-            <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
-            <div class="user-dropdown-content">
-                <a href="edit-profile.html">Edit Profile</a>
-                <a href="#" onclick="logout()">Logout</a>
-            </div>
+            <div class="user-dropdown" id="userDropdown" style="display: none;">
+                <button>
+                    <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
+                </button>
+                <div class="user-dropdown-content">
+                    <a href="edit-profile.html">Edit Profile</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>       
         </div>
-    </nav>
-    
     </nav>
 
     <section class="contact-section">
@@ -57,35 +58,17 @@
         </div>
     </section>
 
-    <!-- Live Chat Widget -->
-<div id="chat-toggle" class="chat-toggle">💬</div>
-<div class="chat-widget">
-    <div class="chat-widget-header">
-        <div class="chat-title">MintedCo Virtual Advisor</div>
-        <div class="chat-close">✖</div>
-    </div>
-    <div class="chat-widget-body">
-        <div class="chat-messages" id="chat-messages">
-            <!-- Chat messages will be appended here -->
-        </div>
-        <div class="chat-widget-footer">
-            <input type="text" id="user-input" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-</div>
-
-
     <section class="additional-info">
         <div class="info-container">
             <div class="info-item">
-                <img src="images/office.png" alt="Office Icon">
                 <h2>Our Office</h2>
                 <p>123 Finance Street, Suite 456</p>
                 <p>Financial District, City Name, Country</p>
             </div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
             <div class="info-item">
-                <img src="images/clock.png" alt="Clock Icon">
                 <h2>Business Hours</h2>
                 <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                 <p>Saturday: 10:00 AM - 4:00 PM</p>

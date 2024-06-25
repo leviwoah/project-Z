@@ -47,6 +47,11 @@ function loadData() {
     }
 }
 
+// Get Google Maps API key
+app.get('/google-maps-api-key', (req, res) => {
+    res.json({ apiKey: process.env.GOOGLE_MAPS_API_KEY });
+});
+
 // Save data to JSON file
 function saveData() {
     fs.writeFileSync('data.json', JSON.stringify({ users, portfolios }));
@@ -57,8 +62,8 @@ loadData();
 
 // Rate limit for signup endpoint
 const signupLimiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 15 minutes
-    max: 99, // Limit each IP to 5 requests per windowMs
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 requests per windowMs
     message: 'Too many signup attempts from this IP, please try again after 15 minutes'
 });
 

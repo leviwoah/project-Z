@@ -30,23 +30,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error sending message. Please try again.');
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", function() {
     const chatWidget = document.querySelector('.chat-widget');
     const chatToggle = document.getElementById('chat-toggle');
     const chatClose = document.querySelector('.chat-close');
 
     function toggleChatWidget() {
-        console.log('toggleChatWidget called');
         if (chatWidget.classList.contains('show')) {
             chatWidget.classList.remove('show');
             chatToggle.classList.remove('move-left');
-            console.log('Chat widget hidden');
         } else {
             chatWidget.classList.add('show');
             chatToggle.classList.add('move-left');
-            console.log('Chat widget shown');
         }
     }
 
@@ -71,15 +66,15 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify({ message }),
         })
-            .then(response => response.json())
-            .then(data => {
-                const aiMessage = data.response;
-                addChatMessage('Advisor', aiMessage);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                addChatMessage('Advisor', 'Sorry, something went wrong. Please try again later.');
-            });
+        .then(response => response.json())
+        .then(data => {
+            const aiMessage = data.response;
+            addChatMessage('Advisor', aiMessage);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            addChatMessage('Advisor', 'Sorry, something went wrong. Please try again later.');
+        });
     }
 
     function addChatMessage(sender, message) {
@@ -93,4 +88,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize the chat with a welcome message
     addChatMessage('Advisor', 'Welcome to MintedCo! How can I assist you today?');
+});
+
+function initMap() {
+    var location = {lat: -34.397, lng: 150.644};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: location
+    });
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+}
+
+function loadGoogleMapsScript(apiKey) {
+    var script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/google-maps-api-key')
+        .then(response => response.json())
+        .then(data => {
+            loadGoogleMapsScript(data.apiKey);
+        })
+        .catch(error => {
+            console.error('Error fetching API key:', error);
+        });
 });

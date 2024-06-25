@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginLink = document.getElementById('loginLink');
     const signupLink = document.getElementById('signupLink');
     const userDropdown = document.getElementById('userDropdown');
-    const userImg = document.querySelector('.user-dropdown img');
+    const userImg = document.querySelector('.user-dropdown button img');
 
     if (username) {
         loginLink.style.display = 'none';
@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userDropdown.style.display = 'none';
     }
 
+    // Show/hide dropdown on hover
     document.querySelector('.user-dropdown').addEventListener('mouseenter', () => {
         document.querySelector('.user-dropdown-content').style.display = 'block';
     });
