@@ -19,6 +19,26 @@ body {
     z-index: 1000;
 }
 
+.nav .logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #e9d8a6;
+    font-family: 'Poppins', sans-serif;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav .logo:hover {
+    color: #94d2bd;
+    transform: scale(1.1);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav .center-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
 .nav ul {
     list-style: none;
     margin: 0;
@@ -28,7 +48,7 @@ body {
 }
 
 .nav ul li {
-    margin: 2px 15px;
+    margin: 0 15px;
 }
 
 .nav ul li a {
@@ -48,25 +68,10 @@ body {
     color: #e9d8a6;
 }
 
-.nav .logo {
-    font-size: 32px;
-    font-weight: bold;
-    color: #e9d8a6;
-    font-family: 'Poppins', sans-serif;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.nav .logo:hover {
-    color: #94d2bd;
-    transform: scale(1.1);
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
 .user-dropdown {
     position: relative;
     display: inline-block;
-    margin-right: 100px; /* Adjust this value to move the avatar more to the left */
-    padding-right: 50px;
+    margin-right: 230px;
 }
 
 .user-dropdown button {
@@ -126,6 +131,27 @@ body {
     display: block;
     opacity: 1;
     transform: translateY(0);
+}
+
+.auth-links {
+    display: none; /* Hide when the user is logged in */
+}
+
+.auth-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-links a:hover {
+    background-color: #0a9396;
+    color: #e9d8a6;
 }
 
 .notification {
