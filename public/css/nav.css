@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-}
 
 .nav {
     display: flex;
@@ -25,6 +21,7 @@ body {
     color: #e9d8a6;
     font-family: 'Poppins', sans-serif;
     transition: color 0.3s ease, transform 0.3s ease;
+    margin-right: 50px; /* Space out the logo */
 }
 
 .nav .logo:hover {
@@ -71,7 +68,7 @@ body {
 .user-dropdown {
     position: relative;
     display: inline-block;
-    margin-right: 230px;
+    margin-right: 230px; /* Adjust this value to move the avatar more to the left */
 }
 
 .user-dropdown button {
@@ -98,7 +95,7 @@ body {
 .user-dropdown-content {
     display: none;
     position: absolute;
-    background-color: #ffffff; /* Background color for the dropdown */
+    background-color: #f5fdfd; /* Background color for the dropdown */
     color: #333333; /* Text color */
     min-width: 200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -134,7 +131,7 @@ body {
 }
 
 .auth-links {
-    display: none; /* Hide when the user is logged in */
+    display: inline-block; /* Show when the user is logged out */
 }
 
 .auth-links a {

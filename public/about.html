@@ -10,27 +10,32 @@
     <title>MintedCo</title>
 </head>
 <body>
-    <nav class="nav">
+    <div class="nav">
         <div class="logo">MintedCo</div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="investments.html">Investments</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li id="loginLink"><a href="login.html">Login</a></li>
-            <li id="signupLink"><a href="signup.html">Sign Up</a></li>
-        </ul>
-        <div class="user-dropdown" id="userDropdown" style="display: none;">
-            <button>
-                <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
-            </button>
-            <div class="user-dropdown-content">
-                <a href="edit-profile.html">Edit Profile</a>
-                <a href="#" onclick="logout()">Logout</a>
+        <div class="center-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="investments.html">Investments</a></li>
+                <li><a href="about.html"  class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-links"><a href="login.html" id="loginLink">Login</a></li>
+                <li class="auth-links"><a href="signup.html" id="signupLink">Sign Up</a></li>
+            </ul>
+        </div>
+        <div class="right-section">
+            <div class="user-dropdown" id="userDropdown" style="display: none;">
+                <button>
+                    <img src="images/default-avatar.png" alt="User Avatar" class="avatar">
+                </button>
+                <div class="user-dropdown-content">
+                    <a href="edit-profile.html">Edit Profile</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
             </div>
-        </div>  
-    </nav>
+        </div>
+    </div>
+    
 
     <section class="about-hero">
         <div class="about-hero-content">
